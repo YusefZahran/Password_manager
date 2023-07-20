@@ -1,6 +1,7 @@
 def main():
     """ Main program """
     # Code goes over here.
+    print("Test!")
     return 0
 
 
