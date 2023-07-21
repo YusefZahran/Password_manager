@@ -1,8 +1,13 @@
 def main():
     """ Main program """
     register_user()
-    login()
-
+    #login()
+    if login():
+        # Place code here that executes after successful login
+        print("Welcome to the system!")
+    else:
+        # Place code here that executes when login fails
+        print("Access denied.")
     print("Test!")
     # fuck yea
     return 0
@@ -32,9 +37,10 @@ def login():
     # Check if the entered username and password match the dictionary entries
     if username in registered_users and registered_users[username] == password:
         print("Login Successful!")
+        return True
     else:
         print("Invalid username or password. Please try again.")
-
+        return False
 # Registration
 
 
