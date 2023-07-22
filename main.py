@@ -1,6 +1,6 @@
 # To install library in case PyCharm couldn't: pip install tk
 from cryptographer import Cryptographer
-from ui.main_menu_widget import MainMenuWidget
+from ui.widgets.main_menu_widget import MainMenuWidget
 
 
 def cryptographer_test():
