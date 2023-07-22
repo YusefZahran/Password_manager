@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import globals
+from ui.components.custom_vertical_input_field import CustomVerticalInputField
 
 
 class MainMenuWidget:
@@ -51,32 +52,17 @@ class MainMenuWidget:
         return int(y)
 
     def __initialize_components(self):
-        # region Username
-        username_entry_label = tk.Label(self.__root, text="Username", foreground='#FFFFFF')
-        username_entry_label.place(x=self.__get_x_center(), y=self.__get_y_center() - 125, anchor=tk.CENTER)
-        username_entry = tk.Entry(self.__root,
-                                  textvariable=self.__username_var,
-                                  font=('calibre', 10, 'normal'),
-                                  justify="center",
-                                  background='#313338')
-        username_entry.place(x=self.__get_x_center(), y=self.__get_y_center() - 100, anchor=tk.CENTER)
-        # endregion
+        # Username
+        CustomVerticalInputField(self.__root, "Username", self.__username_var,
+                                 x=self.__get_x_center(), y=self.__get_y_center(), y_offset=-100)
 
-        # region Master Password
-        master_password_entry_label = tk.Label(self.__root, text="Master Password", foreground='#FFFFFF')
-        master_password_entry_label.place(x=self.__get_x_center(), y=self.__get_y_center() - 50, anchor=tk.CENTER)
-        master_password_entry = tk.Entry(self.__root,
-                                         show="*",
-                                         textvariable=self.__master_password_var,
-                                         font=('calibre', 10, 'normal'),
-                                         justify="center",
-                                         background='#313338')
-        master_password_entry.place(x=self.__get_x_center(), y=self.__get_y_center() - 25, anchor=tk.CENTER)
-        # endregion
+        # Username
+        CustomVerticalInputField(self.__root, "Master Password", self.__master_password_var, show='*',
+                                 x=self.__get_x_center(), y=self.__get_y_center(), y_offset=-25)
 
         # region Submit
         submit_button = tk.Button(self.__root, text="Sign in", command=self.submit_command)
-        submit_button.place(x=self.__get_x_center(), y=self.__get_y_center() + 25, anchor=tk.CENTER)
+        submit_button.place(x=self.__get_x_center(), y=self.__get_y_center() + 70, anchor=tk.CENTER)
         # endregion
     # endregion
 
