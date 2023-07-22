@@ -1,7 +1,12 @@
+
 def main():
+
+    # FileManager.write(FileManager.sample_passwords)
+    # print(FileManager.read())
+
     """ Main program """
     register_user()
-    #login()
+    # login()
     if login():
         # Place code here that executes after successful login
         print("Welcome to the system!")
