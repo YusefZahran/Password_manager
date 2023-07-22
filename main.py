@@ -1,5 +1,5 @@
 # To install library in case PyCharm couldn't: pip install tk
-from Cryptographer import Cryptographer
+from cryptographer import Cryptographer
 from ui.main_menu_widget import MainMenuWidget
 
 
@@ -17,10 +17,14 @@ def cryptographer_test():
     print(decrypted)
 
 
-def main():
-    cryptographer_test()
+def ui_test():
     main_menu = MainMenuWidget()
     main_menu.show()
+
+
+def main():
+    cryptographer_test()
+    ui_test()
 
 
 if __name__ == '__main__':
