@@ -1,6 +1,5 @@
 import tkinter as tk
 
-import globals
 from ui.components.custom_entry import CustomEntry
 from ui.components.custom_label import CustomLabel
 

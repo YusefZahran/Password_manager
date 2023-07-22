@@ -10,7 +10,6 @@ class CustomLabel:
                  x_offset: int = 0, y_offset: int = 0):
         label = tk.Label(root,
                          text=text,
-                         # font=('calibre', 10, 'normal'),
                          justify="center",
                          foreground=globals.LABEL_FOREGROUND_COLOR)
         label.place(x=x + x_offset, y=y + y_offset, anchor=tk.CENTER)
