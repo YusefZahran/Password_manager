@@ -8,3 +8,7 @@ SALT_DIRECTORY = "./salt/"
 MAIN_MENU_WIDGET_WIDTH: int = 600
 MAIN_MENU_WIDGET_HEIGHT: int = 400
 # endregion
+
+# region General
+PROGRAM_NAME = "Password Manager"
+# endregion
