@@ -1,3 +1,5 @@
+from PasswordManager import PasswordManager
+
 
 def main():
 
@@ -14,7 +16,10 @@ def main():
         # Place code here that executes when login fails
         print("Access denied.")
     print("Test!")
-    # PasswordManager.add_password()
+    pm = PasswordManager()
+    pm.add_password()
+    pm.add_password()
+    pm.print_passwords()
     # fuck yea
     return 0
 

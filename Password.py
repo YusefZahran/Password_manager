@@ -14,5 +14,5 @@ class Password:
         self.details = details
 
     def __str__(self):
-        return f"title: " + self.title + "\n username: " + self.username + "\n password: " + self.__password + \
-            "\n details: " + self.details + "\n"
+        return f"title: " + self.title + "\nusername: " + self.username + "\npassword: " + self.__password + \
+            "\ndetails: " + self.details + "\n"
