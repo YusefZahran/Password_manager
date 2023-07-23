@@ -4,7 +4,7 @@ import globals
 
 
 class CustomEntry(tk.Entry):
-    def __init__(self, master: tk.Tk, text_variable: tk.Variable = None, show: str = None, x: int = 0, y: int = 0,
+    def __init__(self, master: tk.Misc, text_variable: tk.Variable = None, show: str = None, x: int = 0, y: int = 0,
                  x_offset: int = 0, y_offset: int = 0):
         super().__init__(master,
                          textvariable=text_variable,

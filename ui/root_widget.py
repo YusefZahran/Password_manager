@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import globals
+from ui.frames.main_menu_frame import MainMenuFrame
 
 
 class RootWidget(tk.Tk):
@@ -8,9 +9,10 @@ class RootWidget(tk.Tk):
     def __init__(self):
         super().__init__()
         self.__initialize_widget()
+
     # endregion
 
-    # region Root UI
+    # region UI
     def __initialize_widget(self):
         # region Set window position
         width = globals.MAIN_MENU_WIDGET_WIDTH
@@ -31,11 +33,19 @@ class RootWidget(tk.Tk):
 
     def show(self):
         self.mainloop()
+
     # endregion
 
     # region Frames
+    def clear_canvas(self):
+        for child in self.winfo_children():
+            child.destroy()
+
     @staticmethod
-    def add_frame(frame: tk.Frame):
-        frame.pack()
+    def add_frame(frame: tk.Frame | MainMenuFrame):
+        if frame is tk.Frame:
+            frame.pack(expand=True, fill=tk.BOTH)
+        else:
+            frame.show()
 
     # endregion

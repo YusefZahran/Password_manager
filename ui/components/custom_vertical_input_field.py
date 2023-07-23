@@ -8,7 +8,7 @@ class CustomVerticalInputField:
     custom_label: CustomLabel
     custom_entry: CustomEntry
 
-    def __init__(self, master: tk.Tk, text: str = None, text_variable: tk.Variable = None, show: str = None,
+    def __init__(self, master: tk.Misc, text: str = None, text_variable: tk.Variable = None, show: str = None,
                  separation: int = -25, x: int = 0, y: int = 0,
                  x_offset: int = 0, y_offset: int = 0):
         entry_y_offset = y_offset - separation
