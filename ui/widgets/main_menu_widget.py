@@ -57,7 +57,7 @@ class MainMenuWidget:
                                  x=self.__get_x_center(), y=self.__get_y_center(), y_offset=-100)
 
         # Username
-        CustomVerticalInputField(self.__root, "Master Password", self.__master_password_var, show='*',
+        CustomVerticalInputField(self.__root, "Master Password", self.__master_password_var, show='ඞ',
                                  x=self.__get_x_center(), y=self.__get_y_center(), y_offset=-25)
 
         # region Submit
