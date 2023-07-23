@@ -18,8 +18,7 @@ def main():
     pm.add_password()
     pm.print_passwords()
 
-    FileManager.write()
-    print(FileManager.read())
+    file_manager_test()
     # fuck yea
     return 0
 
@@ -57,3 +56,11 @@ def login():
 
 if __name__ == "__main__":
     main()
+
+
+def file_manager_test():
+    pm = PasswordManager()
+    pm.add_password()
+
+    FileManager.save_passwords()
+    print(FileManager.load_passwords())

@@ -2,7 +2,7 @@ from Password import Password
 
 
 class PasswordManager:
-    list_of_passwords: Password = []
+    list_of_passwords: [Password] = []
 
     # currently assuming there's only one user, otherwise the list of passwords will be in a usermanager file
 
