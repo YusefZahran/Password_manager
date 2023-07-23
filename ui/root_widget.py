@@ -34,7 +34,8 @@ class RootWidget(tk.Tk):
     # endregion
 
     # region Frames
-    def add_frame(self, frame: tk.Frame):
+    @staticmethod
+    def add_frame(frame: tk.Frame):
         frame.pack()
 
     # endregion
