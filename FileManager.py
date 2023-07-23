@@ -21,7 +21,7 @@ sample_passwords = {
 
 def write():
     pm = PasswordManager.PasswordManager()
-    pw_json = json.dumps(pm.list_of_passwords)
+    pw_json = json.dumps([pw.__dict__ for pw in pm.list_of_passwords])
 
     with open("notpasswords.json", "w") as outfile:
         outfile.write(pw_json)

@@ -1,10 +1,8 @@
+import FileManager
 from PasswordManager import PasswordManager
 
 
 def main():
-
-    # FileManager.write(FileManager.sample_passwords)
-    # print(FileManager.read())
 
     """ Main program """
     register_user()
@@ -18,8 +16,10 @@ def main():
     print("Test!")
     pm = PasswordManager()
     pm.add_password()
-    pm.add_password()
     pm.print_passwords()
+
+    FileManager.write()
+    print(FileManager.read())
     # fuck yea
     return 0
 
