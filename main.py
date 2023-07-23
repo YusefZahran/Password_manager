@@ -7,12 +7,14 @@ def cryptographer_test():
     username = "admin"
     master_password = "P@ssw0rd"
 
-    cryptographer = Cryptographer(username, master_password)
+    encrypter = Cryptographer(username, master_password)
 
     entry = "pass"
-    token = cryptographer.encrypt_entry(entry)
+    token = encrypter.encrypt_entry(entry)
 
-    decrypted = cryptographer.decrypt_entry(token)
+    decrypter = Cryptographer(username, master_password)
+
+    decrypted = decrypter.decrypt_entry(token)
 
     print(decrypted)
 
