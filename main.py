@@ -29,6 +29,7 @@ def ui_test():
     main_menu = MainMenuFrame(root)
     root.add_frame(main_menu)
     root.wait_window(main_menu)
+    print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
 
     root.show()
 

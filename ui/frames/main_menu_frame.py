@@ -6,14 +6,14 @@ from ui.frames.CustomFrame import CustomFrame
 
 class MainMenuFrame(CustomFrame):
     # region Properties
-    __username_var: tk.StringVar
-    __master_password_var: tk.StringVar
+    username_var: tk.StringVar
+    master_password_var: tk.StringVar
     # endregion
 
     # region Constructor
     def __init__(self, master: tk.Misc):
-        self.__username_var = tk.StringVar()
-        self.__master_password_var = tk.StringVar()
+        self.username_var = tk.StringVar()
+        self.master_password_var = tk.StringVar()
 
         super().__init__(master)
     # endregion
@@ -21,11 +21,11 @@ class MainMenuFrame(CustomFrame):
     # region UI
     def initialize_frame(self):
         # Username
-        CustomVerticalInputField(self, "Username", self.__username_var,
+        CustomVerticalInputField(self, "Username", self.username_var,
                                  x=self._get_x_center(), y=self._get_y_center(), y_offset=-100)
 
         # Username
-        CustomVerticalInputField(self, "Master Password", self.__master_password_var, show='ඞ',
+        CustomVerticalInputField(self, "Master Password", self.master_password_var, show='ඞ',
                                  x=self._get_x_center(), y=self._get_y_center(), y_offset=-25)
 
         # region Submit
@@ -37,6 +37,6 @@ class MainMenuFrame(CustomFrame):
 
     # region Commands
     def submit_command(self):
-        print(f"Submitted: {self.__username_var.get()}: {self.__master_password_var.get()}")
+        print(f"Submitted: {self.username_var.get()}: {self.master_password_var.get()}")
         self.destroy_frame()
     # endregion
