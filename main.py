@@ -2,8 +2,8 @@ import FileManager
 from PasswordManager import PasswordManager
 
 
+# region Main
 def main():
-
     """ Main program """
     register_user()
     # login()
@@ -23,6 +23,12 @@ def main():
     return 0
 
 
+if __name__ == "__main__":
+    main()
+
+# endregion
+
+# region Registration
 # Dictionary to store registered users' credentials
 registered_users = {}
 
@@ -51,12 +57,11 @@ def login():
     else:
         print("Invalid username or password. Please try again.")
         return False
-# Registration
 
 
-if __name__ == "__main__":
-    main()
+# endregion
 
+# region Tests
 
 def file_manager_test():
     pm = PasswordManager()
@@ -64,3 +69,5 @@ def file_manager_test():
 
     FileManager.save_passwords()
     print(FileManager.load_passwords())
+
+# endregion
