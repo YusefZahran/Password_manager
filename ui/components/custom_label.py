@@ -11,6 +11,7 @@ class CustomLabel:
         label = tk.Label(root,
                          text=text,
                          justify="center",
-                         foreground=globals.LABEL_FOREGROUND_COLOR)
+                         foreground=globals.LABEL_FOREGROUND_COLOR,
+                         background=globals.PROGRAM_BACKGROUND_COLOR)
         label.place(x=x + x_offset, y=y + y_offset, anchor=tk.CENTER)
         self.label = label

@@ -13,6 +13,7 @@ class CustomEntry:
                          font=('calibre', 10, 'normal'),
                          justify="center",
                          show=show,
-                         background=globals.ENTRY_BG_COLOR)
+                         background=globals.ENTRY_BG_COLOR,
+                         foreground="#FFFFFF")
         entry.place(x=x + x_offset, y=y + y_offset, anchor=tk.CENTER)
         self.entry = entry

@@ -1,6 +1,7 @@
 # To install library in case PyCharm couldn't: pip install tk
 from cryptographer import Cryptographer
-from ui.widgets.main_menu_widget import MainMenuWidget
+from ui.frames.main_menu_frame import MainMenuFrame
+from ui.root_widget import RootWidget
 
 
 def cryptographer_test():
@@ -20,8 +21,13 @@ def cryptographer_test():
 
 
 def ui_test():
-    main_menu = MainMenuWidget()
-    main_menu.show()
+    root = RootWidget()
+
+    main_menu = MainMenuFrame(root)
+
+    root.add_frame(main_menu)
+
+    root.show()
 
 
 def main():
