@@ -6,33 +6,6 @@ from cryptographer import Cryptographer
 from ui.frames.main_menu_frame import MainMenuFrame
 from ui.root_widget import RootWidget
 
-# region Main
-def main():
-    """ Main program """
-    register_user()
-    # login()
-    if login():
-        # Place code here that executes after successful login
-        print("Welcome to the system!")
-    else:
-        # Place code here that executes when login fails
-        print("Access denied.")
-    print("Test!")
-    pm = PasswordManager()
-    pm.add_password()
-    pm.print_passwords()
-
-    file_manager_test()
-    # fuck yea
-    return 0
-
-
-
-if __name__ == '__main__':
-    main()
-
-# endregion
-
 # region Registration
 # Dictionary to store registered users' credentials
 registered_users = {}
@@ -95,6 +68,7 @@ def ui_test():
 
     root.show()
 
+
 def file_manager_test():
     pm = PasswordManager()
     pm.add_password()
@@ -103,5 +77,33 @@ def file_manager_test():
 
     fm.save_passwords()
     print(fm.load_passwords())
+
+# endregion
+
+# region Main
+def main():
+    cryptographer_test()
+    ui_test()
+    """ Main program """
+    register_user()
+    # login()
+    if login():
+        # Place code here that executes after successful login
+        print("Welcome to the system!")
+    else:
+        # Place code here that executes when login fails
+        print("Access denied.")
+    print("Test!")
+    pm = PasswordManager()
+    pm.add_password()
+    pm.print_passwords()
+
+    file_manager_test()
+    # fuck yea
+    return 0
+
+
+if __name__ == '__main__':
+    main()
 
 # endregion
