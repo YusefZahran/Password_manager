@@ -1,5 +1,42 @@
+# To install library in case PyCharm couldn't: pip install tk
+import tkinter
 import FileManager
 from PasswordManager import PasswordManager
+from cryptographer import Cryptographer
+from ui.frames.main_menu_frame import MainMenuFrame
+from ui.root_widget import RootWidget
+
+
+def cryptographer_test():
+    username = "admin"
+    master_password = "P@ssw0rd"
+
+    encrypter = Cryptographer(username, master_password)
+
+    entry = "pass"
+    token = encrypter.encrypt_entry(entry)
+
+    decrypter = Cryptographer(username, master_password)
+
+    decrypted = decrypter.decrypt_entry(token)
+
+    print(decrypted)
+
+
+def ui_test():
+    root = RootWidget()
+    root.clear_canvas()
+
+    main_menu = MainMenuFrame(root)
+    root.add_frame(main_menu)
+    root.wait_window(main_menu)
+    print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+
+    root.show()
+
+
+
+
 
 
 # region Main
@@ -23,7 +60,8 @@ def main():
     return 0
 
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
 
 # endregion
