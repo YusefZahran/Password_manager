@@ -1,9 +1,9 @@
+import FileManager
+from PasswordManager import PasswordManager
 
+
+# region Main
 def main():
-
-    # FileManager.write(FileManager.sample_passwords)
-    # print(FileManager.read())
-
     """ Main program """
     register_user()
     # login()
@@ -14,10 +14,21 @@ def main():
         # Place code here that executes when login fails
         print("Access denied.")
     print("Test!")
+    pm = PasswordManager()
+    pm.add_password()
+    pm.print_passwords()
+
+    file_manager_test()
     # fuck yea
     return 0
 
 
+if __name__ == "__main__":
+    main()
+
+# endregion
+
+# region Registration
 # Dictionary to store registered users' credentials
 registered_users = {}
 
@@ -46,8 +57,19 @@ def login():
     else:
         print("Invalid username or password. Please try again.")
         return False
-# Registration
 
 
-if __name__ == "__main__":
-    main()
+# endregion
+
+# region Tests
+
+def file_manager_test():
+    pm = PasswordManager()
+    pm.add_password()
+
+    fm = FileManager()
+
+    fm.save_passwords()
+    print(fm.load_passwords())
+
+# endregion
