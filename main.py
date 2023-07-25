@@ -1,6 +1,6 @@
 # To install library in case PyCharm couldn't: pip install tk
 import tkinter
-import FileManager
+from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
 from ui.frames.main_menu_frame import MainMenuFrame
