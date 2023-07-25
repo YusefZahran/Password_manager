@@ -73,14 +73,15 @@ def file_manager_test():
     pm = PasswordManager()
     pm.add_password()
 
-    FileManager.save_passwords()
-    print(FileManager.load_passwords())
+    fm = FileManager()
+
+    fm.save_passwords()
+    print(fm.load_passwords())
 
 # endregion
 
 # region Main
 def main():
-    file_manager_test()
     cryptographer_test()
     ui_test()
     """ Main program """
@@ -97,6 +98,7 @@ def main():
     pm.add_password()
     pm.print_passwords()
 
+    file_manager_test()
     # fuck yea
     return 0
 
