@@ -1,7 +1,7 @@
 from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
-from ui.frames.main_menu_frame import MainMenuFrame
+from ui.frames.sign_in_form import SignInForm
 from ui.root_widget import RootWidget
 
 
@@ -27,7 +27,7 @@ def ui_test():
     root = RootWidget()
     root.clear_canvas()
 
-    main_menu = MainMenuFrame(root)
+    main_menu = SignInForm(root)
     root.add_frame(main_menu)
     root.wait_window(main_menu)
     print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")

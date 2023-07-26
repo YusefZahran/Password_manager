@@ -4,8 +4,16 @@ import globals
 
 
 class CustomEntry(tk.Entry):
-    def __init__(self, master: tk.Misc, text_variable: tk.Variable = None, show: str = None, x: int = 0, y: int = 0,
-                 x_offset: int = 0, y_offset: int = 0):
+    """Custom Label class. Derived from Tkinter Entry"""
+    def __init__(self, master: tk.Misc, text_variable: tk.Variable = None, show: str = None, x: int = 0, y: int = 0):
+        """
+        Custom Entry constructor
+        :param master: The master (parent) component for the entry to be relative to
+        :param text_variable: The linked text variable with the input
+        :param show: The character to show instead of regular input characters
+        :param x: The x position
+        :param y: The y position
+        """
         super().__init__(master,
                          textvariable=text_variable,
                          font=('calibre', 10, 'normal'),
@@ -13,4 +21,4 @@ class CustomEntry(tk.Entry):
                          show=show,
                          background=globals.ENTRY_BG_COLOR,
                          foreground="#FFFFFF")
-        self.place(x=x + x_offset, y=y + y_offset, anchor=tk.CENTER)
+        self.place(x=x, y=y, anchor=tk.CENTER)
