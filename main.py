@@ -1,43 +1,9 @@
-# To install library in case PyCharm couldn't: pip install tk
-import tkinter
 from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
 from ui.frames.main_menu_frame import MainMenuFrame
 from ui.root_widget import RootWidget
 
-# region Registration
-# Dictionary to store registered users' credentials
-registered_users = {}
-
-
-def register_user():
-    # Get user input for username and password
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
-
-    # Save the username and password in the dictionary
-    registered_users[username] = password
-
-    print("Registration Successful!")
-    return 0
-
-
-def login():
-    # Get user input for login credentials
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
-
-    # Check if the entered username and password match the dictionary entries
-    if username in registered_users and registered_users[username] == password:
-        print("Login Successful!")
-        return True
-    else:
-        print("Invalid username or password. Please try again.")
-        return False
-
-
-# endregion
 
 # region Tests
 
@@ -69,22 +35,33 @@ def ui_test():
     root.show()
 
 
-def file_manager_test():
-    pm = PasswordManager()
-    pm.add_password()
+def registration_test():
+    registered_users = {}
 
-    fm = FileManager()
+    def register_user():
+        # Get user input for username and password
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
 
-    fm.save_passwords()
-    print(fm.load_passwords())
+        # Save the username and password in the dictionary
+        registered_users[username] = password
 
-# endregion
+        print("Registration Successful!")
+        return 0
 
-# region Main
-def main():
-    cryptographer_test()
-    ui_test()
-    """ Main program """
+    def login():
+        # Get user input for login credentials
+        username = input("Enter your username: ")
+        password = input("Enter your password: ")
+
+        # Check if the entered username and password match the dictionary entries
+        if username in registered_users and registered_users[username] == password:
+            print("Login Successful!")
+            return True
+        else:
+            print("Invalid username or password. Please try again.")
+            return False
+
     register_user()
     # login()
     if login():
@@ -94,12 +71,35 @@ def main():
         # Place code here that executes when login fails
         print("Access denied.")
     print("Test!")
+
+
+def password_manager_test():
     pm = PasswordManager()
     pm.add_password()
     pm.print_passwords()
 
+
+def file_manager_test():
+    pm = PasswordManager()
+    pm.add_password()
+
+    fm = FileManager()
+
+    fm.save_passwords()
+    print(fm.load_passwords())
+
+
+# endregion
+
+# region Main
+def main():
+    cryptographer_test()
+    ui_test()
+    registration_test()
+
+    password_manager_test()
+
     file_manager_test()
-    # fuck yea
     return 0
 
 
