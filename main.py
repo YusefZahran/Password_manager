@@ -4,6 +4,7 @@ from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
 from ui.frames.main_menu_frame import MainMenuFrame
+from ui.frames.Register_User_frame import RegisterUserFrame
 from ui.root_widget import RootWidget
 
 # region Registration
@@ -11,10 +12,10 @@ from ui.root_widget import RootWidget
 registered_users = {}
 
 
-def register_user():
+def register_user(Username, String):
     # Get user input for username and password
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
+    username = Username
+    password = String
 
     # Save the username and password in the dictionary
     registered_users[username] = password
@@ -57,6 +58,20 @@ def cryptographer_test():
     print(decrypted)
 
 
+def ui_test_register():
+    root = RootWidget()
+    root.clear_canvas()
+
+    reg_screen = RegisterUserFrame(root)
+    root.add_frame(reg_screen)
+    root.wait_window(reg_screen)
+    #print(f"Received: {reg_screen.registered_username.get()}: {reg_screen.registered_password.get()}")
+    username =reg_screen.registered_username.get()
+    password =reg_screen.registered_password.get()
+    register_user(username,password)
+    root.show()
+
+
 def ui_test():
     root = RootWidget()
     root.clear_canvas()
@@ -78,14 +93,15 @@ def file_manager_test():
     fm.save_passwords()
     print(fm.load_passwords())
 
+
 # endregion
 
 # region Main
 def main():
     cryptographer_test()
     ui_test()
+    ui_test_register()
     """ Main program """
-    register_user()
     # login()
     if login():
         # Place code here that executes after successful login
