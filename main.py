@@ -24,10 +24,8 @@ def register_user(Username, String):
     return 0
 
 
-def login():
+def login(username,password):
     # Get user input for login credentials
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
 
     # Check if the entered username and password match the dictionary entries
     if username in registered_users and registered_users[username] == password:
@@ -72,16 +70,25 @@ def ui_test_register():
     root.show()
 
 
-def ui_test():
+def ui_login():
     root = RootWidget()
     root.clear_canvas()
 
     main_menu = MainMenuFrame(root)
     root.add_frame(main_menu)
     root.wait_window(main_menu)
-    print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
-
+    # print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+    username = main_menu.username_var.get()
+    password = main_menu.master_password_var.get()
     root.show()
+    if login(username, password):
+        # Place code here that executes after successful login
+        return True
+    else:
+        # Place code here that executes when login fails
+        return False
+
+
 
 
 def file_manager_test():
@@ -99,11 +106,10 @@ def file_manager_test():
 # region Main
 def main():
     cryptographer_test()
-    ui_test()
     ui_test_register()
     """ Main program """
     # login()
-    if login():
+    if ui_login():
         # Place code here that executes after successful login
         print("Welcome to the system!")
     else:
