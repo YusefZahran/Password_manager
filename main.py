@@ -76,12 +76,12 @@ def registration_test():
 def password_manager_test():
     pm = PasswordManager()
 
+    pm.add_password()
+    pm.print_passwords()
+
     generated_pass = pm.generate_password()
     print(generated_pass)
     print(pm.is_password_secure(generated_pass))
-
-    pm.add_password()
-    pm.print_passwords()
 
 
 def file_manager_test():
@@ -98,11 +98,11 @@ def file_manager_test():
 
 # region Main
 def main():
-    password_manager_test()
     cryptographer_test()
     ui_test()
     registration_test()
 
+    password_manager_test()
 
     file_manager_test()
     return 0
