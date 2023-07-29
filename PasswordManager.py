@@ -22,43 +22,29 @@ class PasswordManager:
 
     @staticmethod
     def generate_password(length: int = 12) -> str:
-        letter_list: string = ["uppercase", "lowercase", "punc", "nums"]
-        chars_changed = False * length
-        pw: string = ""
-        for i in range(length):
-            c = random.choice(list(string.ascii_lowercase))
-            pw += c
-        nog = length/2
-        it = nog
-        while(nog >0):
-            idx = random.randint(0, length - 1)
-            if not chars_changed[idx]:
-                nog -= 1
-                choice = random.choice(letter_list)
-                if choice == "uppercase":
-                    c = random.choice(list(string.ascii_uppercase))
-                elif choice == "lowercase":
-                    c = random.choice(list(string.ascii_lowercase))
-                elif choice == "punc":
-                    c = random.choice(list(string.punctuation))
-                else:
-                    c = random.choice(list(string.digits))
-                pw[idx] = c
-        # for i in range(length):
-        #     if i == 0 or i == 1 or i == length-1:
-        #         c = random.choice(list(string.ascii_lowercase))
-        #     else:
-        #         choice = random.choice(letter_list)
-        #         if choice == "uppercase":
-        #             c = random.choice(list(string.ascii_uppercase))
-        #         elif choice == "lowercase":
-        #             c = random.choice(list(string.ascii_lowercase))
-        #         elif choice == "punc":
-        #             c = random.choice(list(string.punctuation))
-        #         else:
-        #             c = random.choice(list(string.digits))
-        #     pw += c
-        return pw
+        characters = string.ascii_letters + string.digits + string.punctuation
+
+        has_uppercase = False
+        has_digit = False
+        has_special = False
+
+        password = ""
+
+        while len(password) < length:
+            char = random.choice(characters)
+            if char in string.ascii_uppercase:
+                has_uppercase = True
+            elif char in string.digits:
+                has_digit = True
+            elif char in string.punctuation:
+                has_special = True
+
+            password += char
+
+        if not (has_uppercase and has_digit and has_special):
+            return PasswordManager.generate_password(length)
+
+        return password
 
     @staticmethod
     def is_password_secure(password: str) -> bool:
