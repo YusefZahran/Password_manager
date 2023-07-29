@@ -97,6 +97,9 @@ def file_manager_test():
 
 # region Main
 def main():
+    print(PasswordManager.generate_password())
+    print(PasswordManager.generate_password())
+    print(PasswordManager.generate_password())
     cryptographer_test()
     ui_test()
     registration_test()
