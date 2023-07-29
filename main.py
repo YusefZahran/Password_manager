@@ -75,8 +75,13 @@ def registration_test():
 
 def password_manager_test():
     pm = PasswordManager()
+
     pm.add_password()
     pm.print_passwords()
+
+    generated_pass = pm.generate_password()
+    print(generated_pass)
+    print(pm.is_password_secure(generated_pass))
 
 
 def file_manager_test():
