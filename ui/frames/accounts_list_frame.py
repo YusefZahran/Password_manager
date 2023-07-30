@@ -1,10 +1,10 @@
 import tkinter as tk
 
+from ui.frames.abstract_frame import AbstractFrame
 from ui.frames.account_frame import AccountFrame
-from ui.frames.custom_frame import CustomFrame
 
 
-class AccountsListFrame(CustomFrame):
+class AccountsListFrame(AbstractFrame):
     accounts_lists: [AccountFrame]
 
     def __init__(self, master: tk.Misc):
@@ -12,3 +12,6 @@ class AccountsListFrame(CustomFrame):
 
     def initialize_frame(self):
         ...
+
+    def show(self):
+        super().show()
