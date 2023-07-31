@@ -11,7 +11,6 @@ class CustomButton(tk.Button):
         Custom Button constructor
         :param master: The master (parent) component for the entry to be relative to
         :param text: The text to show on the button
-        :param show: The character to show instead of regular input characters
         :param x: The x position
         :param y: The y position
         """
