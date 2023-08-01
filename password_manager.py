@@ -1,7 +1,7 @@
 import random
 import string
 
-from Password import Password
+from password import Password
 
 
 class PasswordManager:

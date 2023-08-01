@@ -1,5 +1,5 @@
 import json
-import PasswordManager
+import password_manager
 
 sample_passwords = {
     'passwords': [
