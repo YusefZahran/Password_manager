@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from ui.frames.abstract_frame import AbstractFrame
-from ui.frames.account_frame import AccountFrame
+from ui.components.account_component import AccountComponent
 
 
 class AccountsListFrame(AbstractFrame):
@@ -10,12 +10,12 @@ class AccountsListFrame(AbstractFrame):
     search_var: tk.StringVar
     """The search variable linked to the search bar"""
 
-    accounts_lists: [AccountFrame]
+    accounts_lists: [AccountComponent]
 
     def __init__(self, master: tk.Misc):
         """Sign in form constructor
-               :param master: The master (parent) component for the entry to be relative to
-               """
+        :param master: The master (parent) component for the entry to be relative to
+        """
         # Initialize UI variables
         self.search_var = tk.StringVar()
 

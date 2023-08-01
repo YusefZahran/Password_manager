@@ -6,7 +6,7 @@ from ui.frames.abstract_frame import AbstractFrame
 from ui.frames.custom_frame import CustomFrame
 
 
-class AccountFrame(AbstractFrame):
+class AccountComponent(AbstractFrame):
     def __init__(self, master: tk.Misc, name: str, username: str, tags: [str]):
         self.name = name
         self.username = username

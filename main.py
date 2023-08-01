@@ -1,7 +1,7 @@
 from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
-from ui.frames.account_frame import AccountFrame
+from ui.components.account_component import AccountComponent
 from ui.frames.sign_in_form import SignInForm
 from ui.root_widget import RootWidget
 
@@ -34,12 +34,10 @@ def ui_test():
 
     print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
 
-    root.add_frame(AccountFrame(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountFrame(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountFrame(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountFrame(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-
-
+    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
+    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
+    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
+    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
 
     root.show()
 
