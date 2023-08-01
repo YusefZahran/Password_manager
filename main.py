@@ -1,5 +1,5 @@
-from FileManager import FileManager
-from PasswordManager import PasswordManager
+from file_manager import FileManager
+from password_manager import PasswordManager
 from cryptographer import Cryptographer
 from ui.components.account_component import AccountComponent
 from ui.frames.accounts_list_frame import AccountsListFrame
