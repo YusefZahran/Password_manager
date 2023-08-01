@@ -9,6 +9,7 @@ class RegisterUserFrame(CustomFrame):
     registered_username: tk.StringVar
     registered_password: tk.StringVar
     registered_Cpassword: tk.StringVar
+
     # endregion
 
     # region Constructor
@@ -16,8 +17,10 @@ class RegisterUserFrame(CustomFrame):
         self.registered_username = tk.StringVar()
         self.registered_password = tk.StringVar()
         self.registered_Cpassword = tk.StringVar()
+        self.error_label = None
 
         super().__init__(master)
+
     # endregion
 
     # region UI
@@ -38,7 +41,6 @@ class RegisterUserFrame(CustomFrame):
         submit_button.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
         # endregion
 
-
     # endregion
 
     # region Commands
@@ -47,13 +49,17 @@ class RegisterUserFrame(CustomFrame):
         username = self.registered_username.get()
         password = self.registered_password.get()
         Cpassword = self.registered_Cpassword.get()
-        while (username == "" or password == "" or Cpassword == ""):
-            error_label = tk.Label(self, text="Please fill in all the fields", fg="red")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+        while username == "" or password == "" or Cpassword == "":
+            if self.error_label is not None:
+                self.error_label.destroy()
+            self.error_label = tk.Label(self, text="Please fill in all the fields", fg="red")
+            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
             return
-        while ( password != Cpassword):
-            error_label = tk.Label(self, text="confirm password does not match", fg="red")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+        while (password != Cpassword):
+            if self.error_label is not None:
+                self.error_label.destroy()
+            self.error_label = tk.Label(self, text="confirm password does not match", fg="red")
+            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
             return
         from Registeration_Login import register_user
         from ui.frames.main_menu_frame import MainMenuFrame
