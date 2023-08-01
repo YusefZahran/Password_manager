@@ -49,28 +49,51 @@ class AccountsListFrame(AbstractFrame):
         CustomSearchBar(top_bar, self.search_var, command=self.search_command, x=100, y=20)
 
         # Sort button
-        CustomOptionInput(top_bar, self.sort_var,  self.sort_options, "Sort", command=self.sort_command, x=300, y=20)
+        CustomOptionInput(top_bar, self.sort_var, self.sort_options, "Sort", command=self.sort_command, x=300, y=20)
 
         # Filter button
-        CustomOptionInput(top_bar, self.filter_var, self.filter_options, "Filter", command=self.filter_command, x=420, y=20)
+        CustomOptionInput(top_bar, self.filter_var, self.filter_options, "Filter", command=self.filter_command, x=420,
+                          y=20)
 
         # Add account button
-        CustomButton(top_bar, "Add Account", button_size=globals.SMALL_BUTTON_SIZE, command=self.switch_to_add_account_frame, x=540, y=20)
+        CustomButton(top_bar, "Add Account", button_size=globals.SMALL_BUTTON_SIZE,
+                     command=self.switch_to_add_account_frame, x=540, y=20)
 
         top_bar.pack()
 
         # Accounts list elements
-        accounts_list = CustomFrame(self)
+        list_frame = tk.Frame(self, width=300, height=300)
+        list_frame.pack(expand=True, fill=tk.BOTH)
 
-        tk.Scrollbar(accounts_list, orient=tk.VERTICAL).pack(side=tk.RIGHT, fill=tk.Y)
+        list_canvas = tk.Canvas(list_frame, bg=globals.PROGRAM_BACKGROUND_COLOR, highlightthickness=0,
+                                scrollregion=(0, 0, 500, 500))
 
-        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        vbar = tk.Scrollbar(list_frame, orient=tk.VERTICAL)
+        vbar.pack(side=tk.RIGHT, fill=tk.Y)
+        vbar.config(command=list_canvas.yview)
 
-        accounts_list.pack()
+        list_canvas.config(width=300, height=300)
+        list_canvas.config(yscrollcommand=vbar.set)
+
+        # Create a frame inside the canvas to hold the AccountComponent widgets
+        inner_frame = tk.Frame(list_canvas)
+        list_canvas.create_window(0, 0, window=inner_frame, anchor=tk.NW)
+
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+
+        # Update the scroll region based on the inner frame's size
+        list_canvas.update_idletasks()
+        list_canvas.config(scrollregion=list_canvas.bbox(tk.ALL))
+
+        list_canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+
+        # Bind the mouse scroll event to the canvas
+        list_canvas.bind_all("<MouseWheel>", lambda event: list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
 
     def show(self):
         super().show()

@@ -19,7 +19,7 @@ class RootWidget(tk.Tk):
         """Initializes the root widget by setting up the dimensions, location, and necessary components"""
         # region Set window position
         width = globals.ROOT_WIDGET_WIDTH
-        height = globals.ROOT_MENU_WIDGET_HEIGHT
+        height = globals.ROOT_WIDGET_HEIGHT
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x = int((screen_width / 2) - (width / 2))
