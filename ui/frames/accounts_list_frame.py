@@ -18,7 +18,7 @@ class AccountsListFrame(AbstractFrame):
     """The options in the sort menu"""
     filter_options = ["TEST TAG 1", "TEST TAG 2"]
 
-    accounts_lists: [AccountComponent]
+    accounts_lists: [AccountComponent] = []
 
     # endregion
 
@@ -79,12 +79,10 @@ class AccountsListFrame(AbstractFrame):
         inner_frame = tk.Frame(list_canvas)
         list_canvas.create_window(0, 0, window=inner_frame, anchor=tk.NW)
 
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
-        AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        for i in range(10):
+            self.accounts_lists.append(AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com",
+                                                        ["fb", "meta", "codgamer"]))
+            self.accounts_lists[i].pack()
 
         # Update the scroll region based on the inner frame's size
         list_canvas.update_idletasks()
@@ -93,7 +91,8 @@ class AccountsListFrame(AbstractFrame):
         list_canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
         # Bind the mouse scroll event to the canvas
-        list_canvas.bind_all("<MouseWheel>", lambda event: list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
+        list_canvas.bind_all("<MouseWheel>",
+                             lambda event: list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
 
     def show(self):
         super().show()
