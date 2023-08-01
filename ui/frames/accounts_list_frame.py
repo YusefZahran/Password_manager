@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import globals
+from ui.root_widget import add_frame
 from ui.components.account_component import AccountComponent
 from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
@@ -53,6 +54,8 @@ class AccountsListFrame(AbstractFrame):
         CustomButton(self, "Add Account", button_size=globals.SMALL_BUTTON_SIZE, command=self.switch_to_add_account_frame, x=540, y=20)
 
         # Accounts list
+        # Static methods do not work in Python I'm sick of this shit
+        root_widget.add_frame(AccountComponent(self, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
 
     def show(self):
         super().show()
