@@ -61,7 +61,11 @@ class AccountsListFrame(AbstractFrame):
 
         # Accounts list elements
         accounts_list = CustomFrame(self)
-        accounts_list.configure(width=globals.ROOT_WIDGET_WIDTH)
+
+        tk.Scrollbar(accounts_list, orient=tk.VERTICAL).pack(side=tk.RIGHT, fill=tk.Y)
+
+        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
         AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
         AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
         AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()

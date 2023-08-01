@@ -18,8 +18,7 @@ class AccountComponent(AbstractFrame):
         self.configure(padx=10, pady=10)
 
         frame = CustomFrame(self)
-        frame.configure(padx=10, pady=20, width=globals.ROOT_WIDGET_WIDTH - 25, height=50,
-                        highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
+        frame.configure(padx=10, pady=20, highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
 
         CustomLabel(frame, self.name).grid(row=0, column=0, sticky=tk.W, pady=2, padx=25)
 
