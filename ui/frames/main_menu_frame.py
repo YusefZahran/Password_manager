@@ -62,8 +62,8 @@ class MainMenuFrame(CustomFrame):
         while(self.username_var.get() == "" or self.master_password_var.get() == ""):
             if self.error_label is not None:
                 self.error_label.destroy()
-            error_label = tk.Label(self, text=str_error, fg="red")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label = tk.Label(self, text=str_error, fg="red")
+            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
             print("Please fill in all the fields")
             return
 
@@ -75,8 +75,8 @@ class MainMenuFrame(CustomFrame):
             # Place code here that executes after successful login
             if self.error_label is not None:
                 self.error_label.destroy()
-            error_label = tk.Label(self, text=lbl1, fg="green")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label = tk.Label(self, text=lbl1, fg="green")
+            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
 
             return True
 
@@ -84,8 +84,8 @@ class MainMenuFrame(CustomFrame):
             # Place code here that executes when login fails
             if self.error_label is not None:
                 self.error_label.destroy()
-            error_label = tk.Label(self, text=lbl2, fg="red")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
+            self.error_label = tk.Label(self, text=lbl2, fg="red")
+            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
 
         return False
 
