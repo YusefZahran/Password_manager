@@ -1,12 +1,12 @@
 import tkinter as tk
 
 import globals
-from ui.root_widget import add_frame
 from ui.components.account_component import AccountComponent
 from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
 from ui.components.custom_search_bar import CustomSearchBar
 from ui.frames.abstract_frame import AbstractFrame
+from ui.frames.custom_frame import CustomFrame
 
 
 class AccountsListFrame(AbstractFrame):
@@ -41,21 +41,32 @@ class AccountsListFrame(AbstractFrame):
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed"""
 
+        # Top bar elements
+        top_bar = CustomFrame(self)
+        top_bar.configure(width=globals.ROOT_WIDGET_WIDTH, height=50)
+
         # Search bar
-        CustomSearchBar(self, self.search_var, command=self.search_command, x=100, y=20)
+        CustomSearchBar(top_bar, self.search_var, command=self.search_command, x=100, y=20)
 
         # Sort button
-        CustomOptionInput(self, self.sort_var,  self.sort_options, "Sort", command=self.sort_command, x=300, y=20)
+        CustomOptionInput(top_bar, self.sort_var,  self.sort_options, "Sort", command=self.sort_command, x=300, y=20)
 
         # Filter button
-        CustomOptionInput(self, self.filter_var, self.filter_options, "Filter", command=self.filter_command, x=420, y=20)
+        CustomOptionInput(top_bar, self.filter_var, self.filter_options, "Filter", command=self.filter_command, x=420, y=20)
 
         # Add account button
-        CustomButton(self, "Add Account", button_size=globals.SMALL_BUTTON_SIZE, command=self.switch_to_add_account_frame, x=540, y=20)
+        CustomButton(top_bar, "Add Account", button_size=globals.SMALL_BUTTON_SIZE, command=self.switch_to_add_account_frame, x=540, y=20)
 
-        # Accounts list
-        # Static methods do not work in Python I'm sick of this shit
-        root_widget.add_frame(AccountComponent(self, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
+        top_bar.pack()
+
+        # Accounts list elements
+        accounts_list = CustomFrame(self)
+        accounts_list.configure(width=globals.ROOT_WIDGET_WIDTH)
+        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+        AccountComponent(accounts_list, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]).pack()
+
+        accounts_list.pack()
 
     def show(self):
         super().show()
