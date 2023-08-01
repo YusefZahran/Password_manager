@@ -6,7 +6,8 @@ import globals
 class CustomButton(tk.Button):
     """Custom Button class. Derived from Tkinter Button"""
 
-    def __init__(self, master: tk.Misc, text: str = None, command=None, x: int = 0, y: int = 0):
+    def __init__(self, master: tk.Misc, text: str = None, command=None, button_size: int = globals.LARGE_BUTTON_SIZE,
+                 x: int = 0, y: int = 0):
         """
         Custom Button constructor
         :param master: The master (parent) component for the entry to be relative to
@@ -17,7 +18,7 @@ class CustomButton(tk.Button):
         """
         super().__init__(master=master,
                          text=text,
-                         font=('calibre', 7, 'normal'),
+                         font=('calibre', button_size, 'normal'),
                          justify="center",
                          command=command,
                          bg=globals.BUTTON_BG_COLOR,

@@ -21,6 +21,7 @@ class CustomSearchBar:
         """
         x_offset = x - separation
 
-        CustomEntry(master, text_variable, show=show, x=x, y=y)
+        CustomEntry(master, text_variable, x=x, y=y)
 
-        CustomButton(master, search_button_text, x=x_offset, y=y)
+        CustomButton(master, search_button_text, button_size=globals.SMALL_BUTTON_SIZE,
+                     x=x_offset, y=y)

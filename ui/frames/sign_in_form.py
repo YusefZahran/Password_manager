@@ -1,5 +1,6 @@
 import tkinter as tk
 
+from ui.components.custom_button import CustomButton
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.abstract_frame import AbstractFrame
 
@@ -39,8 +40,7 @@ class SignInForm(AbstractFrame):
                                  x=self.get_x_center(), y=self.get_y_center() - 25)
 
         # region Submit
-        submit_button = tk.Button(self, text="Sign in", command=self.submit_command)
-        submit_button.place(x=self.get_x_center(), y=self.get_y_center() + 70, anchor=tk.CENTER)
+        CustomButton(self, "Sign in", self.submit_command, x=self.get_x_center(), y=self.get_y_center() + 70)
         # endregion
 
     def show(self):
