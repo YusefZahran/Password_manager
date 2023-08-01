@@ -2,6 +2,7 @@ from FileManager import FileManager
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
 from ui.components.account_component import AccountComponent
+from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
 from ui.root_widget import RootWidget
 
@@ -38,6 +39,17 @@ def ui_test():
     root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
     root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
     root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
+
+    root.show()
+
+
+def ui_accounts_list_test():
+    root = RootWidget()
+    root.clear_canvas()
+
+    main_menu = AccountsListFrame(root)
+    root.add_frame(main_menu)
+    root.wait_window(main_menu)
 
     root.show()
 
@@ -105,13 +117,14 @@ def file_manager_test():
 
 # region Main
 def main():
-    cryptographer_test()
-    ui_test()
-    registration_test()
-
-    password_manager_test()
-
-    file_manager_test()
+    ui_accounts_list_test()
+    # cryptographer_test()
+    # ui_test()
+    # registration_test()
+    #
+    # password_manager_test()
+    #
+    # file_manager_test()
     return 0
 
 
