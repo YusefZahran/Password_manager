@@ -13,7 +13,7 @@ class MainMenuFrame(CustomFrame):
     def __init__(self, master: tk.Misc):
         self.username_var = tk.StringVar()
         self.master_password_var = tk.StringVar()
-
+        self.error_label = None
         super().__init__(master)
     # endregion
     def switch_to_register(self):
@@ -60,12 +60,12 @@ class MainMenuFrame(CustomFrame):
         lbl2 = "Username or password may be wrong "
         emptystr = ""
         while(self.username_var.get() == "" or self.master_password_var.get() == ""):
+            if self.error_label is not None:
+                self.error_label.destroy()
             error_label = tk.Label(self, text=str_error, fg="red")
             error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
             print("Please fill in all the fields")
             return
-            error_label = tk.Label(self, text=emptystr, fg="red")
-            error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
 
         username = self.username_var.get()
         password = self.master_password_var.get()
@@ -73,6 +73,8 @@ class MainMenuFrame(CustomFrame):
         from Registeration_Login import login
         if login(username, password):
             # Place code here that executes after successful login
+            if self.error_label is not None:
+                self.error_label.destroy()
             error_label = tk.Label(self, text=lbl1, fg="green")
             error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
 
@@ -80,6 +82,8 @@ class MainMenuFrame(CustomFrame):
 
         else:
             # Place code here that executes when login fails
+            if self.error_label is not None:
+                self.error_label.destroy()
             error_label = tk.Label(self, text=lbl2, fg="red")
             error_label.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
 
