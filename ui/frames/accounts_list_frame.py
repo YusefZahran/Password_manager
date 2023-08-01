@@ -110,6 +110,8 @@ class AccountsListFrame(AbstractFrame):
         print("filter: {}".format(self.filter_var.get()))
 
     def switch_to_add_account_frame(self):
-        print("switch")
+        self.pack_forget()
+        # AddUserFrame(self.master).show()
+        self.destroy_frame()
 
     # endregion
