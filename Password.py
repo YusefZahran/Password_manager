@@ -1,7 +1,7 @@
 import string
 
 
-class Password:
+class Account:
     title: string
     username: string
     __password: string
@@ -12,6 +12,12 @@ class Password:
         self.username = username
         self.__password = password
         self.details = details
+
+    def get_password(self):
+        return self.__password
+
+    def set_password(self, password):
+        self.__password = password
 
     def __str__(self):
         return f"title: " + self.title + "\nusername: " + self.username + "\npassword: " + self.__password + \
