@@ -6,8 +6,6 @@ import string
 from ui.frames.custom_frame import CustomFrame
 from ui.components.custom_label import CustomLabel
 from ui.components.custom_entry import CustomEntry
-from ui.components.custom_vertical_input_field import CustomVerticalInputField
-
 
 class ShowPasswordForm(CustomFrame):
     """Show Password Form Frame"""
@@ -38,30 +36,28 @@ class ShowPasswordForm(CustomFrame):
 
         # Title info
         title_label = CustomLabel(self, text="Title: ", x=50, y=50 )
-        title_var_entry = CustomEntry(self, x=160, y=50 )
-        title_var_entry.insert(0, self.title_var)
-        title_var_entry.configure(state="disabled")
+        self.title_var_entry = CustomEntry(self, x=160, y=50 )
+        self.title_var_entry.insert(0, self.title_var)
+        self.title_var_entry.configure(state="disabled")
 
         # Username info
         username_label = CustomLabel(self, text="Username: ", x=50, y=80)
-        username_var_entry = CustomEntry(self, x=160,y= 80)
-        username_var_entry.insert(0, self.username_var)
-        username_var_entry.configure(state="disabled", background="black")
+        self.username_var_entry = CustomEntry(self, x=160,y= 80)
+        self.username_var_entry.insert(0, self.username_var)
+        self.username_var_entry.configure(state="disabled")
 
         # Password infp
         password_label = CustomLabel(self, text="Password: ", x=50, y=110)
-        password_var_entry = CustomEntry(self, x= 160, y=110)
-        password_var_entry.insert(0, self.password_var)
-        password_var_entry.configure(state="disabled")
+        self.password_var_entry = CustomEntry(self, x= 160, y=110)
+        self.password_var_entry.insert(0, self.password_var)
+        self.password_var_entry.configure(state="disabled")
 
-        # edit_button = tk.Button(self, text="Edit", command = self.edit_command)
-        # edit_button.place(x=self._get_x_center(), y=self._get_y_center())
+        edit_button = tk.Button(self, text="Edit", command = self.edit_command)
+        edit_button.place(x=self._get_x_center(), y=self._get_y_center())
 
-    # def edit_command(self):
-    #     # turn the entries states om
-    #     self.title_var_entry.configure(self,state="normal")
-    #     self.username_var_entry.configure(self,state="normal")
-    #     self.password_var_entry.configure(self,state="normal")
-
-
-
+    def edit_command(self):
+        # turn the entries states om
+        
+        self.title_var_entry.configure(state="normal")
+        self.username_var_entry.configure(state="normal")
+        self.password_var_entry.configure(state="normal")
