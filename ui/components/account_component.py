@@ -15,21 +15,19 @@ class AccountComponent(AbstractFrame):
         super().__init__(master)
 
     def initialize_frame(self):
-        self.configure(padx=10, pady=10)
+        self.configure(padx=20, pady=10)
 
-        frame = CustomFrame(self)
-        frame.configure(padx=10, pady=20, highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
-        frame.pack()
-        frame.bind("<Button-1>", self.show_account_info)
+        inner_frame = CustomFrame(self)
+        inner_frame.configure(width=globals.ROOT_WIDGET_WIDTH - 50, height=75, padx=10, pady=20,
+                              highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
+        inner_frame.pack()
+        inner_frame.bind("<Button-1>", self.show_account_info)
 
-        CustomLabel(frame, self.account.title).grid(row=0, column=0, sticky=tk.W, pady=2, padx=25)
+        frame_y_center = 15
 
-        CustomLabel(frame, self.account.username).grid(row=0, column=1, sticky=tk.W, pady=2, padx=25)
+        CustomLabel(inner_frame, self.account.title, "left").place(x=30, y=frame_y_center)
 
-        col = 3
-        for detail in self.account.details:
-            CustomLabel(frame, detail).grid(row=0, column=col, sticky=tk.W, pady=5, padx=20)
-            col += 1
+        CustomLabel(inner_frame, self.account.username, "left").place(x=155, y=frame_y_center)
 
     def show(self):
         self.pack()
