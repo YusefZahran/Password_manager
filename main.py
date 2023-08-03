@@ -1,6 +1,7 @@
 from file_manager import FileManager
 from password_manager import PasswordManager
 from cryptographer import Cryptographer
+from Registeration_Login import MainMenuFrame, login
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
 from ui.root_widget import RootWidget
@@ -108,13 +109,31 @@ def registration_ui_test():
 
 # region Main
 def main():
-    registration_ui_test()
-    ui_accounts_list_test()
-    ui_test()
+    root = RootWidget()
+    root.clear_canvas()
 
-    cryptographer_test()
-    password_manager_test()
-    file_manager_test()
+    main_menu = MainMenuFrame(root)
+    root.add_frame(main_menu)
+    root.wait_window(main_menu)
+    # print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+    username = main_menu.username_var.get()
+    password = main_menu.master_password_var.get()
+    root.show()
+    if login(username, password):
+        # Place code here that executes after successful login
+        root.clear_canvas()
+        # initial_frame = AccountsListFrame(root)
+        # root.add_frame(initial_frame)
+        # root.wait_window(initial_frame)
+
+        return True
+    else:
+        # Place code here that executes when login fails
+        return False
+    root.destroy()
+
+
+    root.show()
     return 0
 
 

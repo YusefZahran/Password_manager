@@ -45,3 +45,4 @@ class AddPasswordFrame(CustomFrame):
 
     def add_password(self):
         PasswordManager.add_password(self.title_var, self.username_var, self.password_var, self.details_var)
+        self.destroy_frame()

@@ -7,6 +7,7 @@ from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
 from ui.components.custom_search_bar import CustomSearchBar
 from ui.frames.abstract_frame import AbstractFrame
+from ui.frames.add_password_form import AddPasswordFrame
 from ui.frames.custom_frame import CustomFrame
 
 # TODO: Make this not explode with too many tags
@@ -171,10 +172,12 @@ class AccountsListFrame(AbstractFrame):
                 filtered_accounts.append(account)
 
         self.display_accounts(self.list_canvas, filtered_accounts)
-
-    def switch_to_add_account_frame(self):
-        self.pack_forget()
-        # AddUserFrame(self.master).show()
-        self.destroy_frame()
+    #
+    # def switch_to_add_account_frame(self):
+    #     show_frame = AddPasswordFrame(self.master)
+    #     self.pack_forget()
+    #     show_frame.pack()
+    #     # AddUserFrame(self.master).show()
+    #     self.pack()
 
     # endregion
