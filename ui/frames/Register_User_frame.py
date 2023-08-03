@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
-from ui.frames.CustomFrame import CustomFrame
+from ui.frames.custom_frame import CustomFrame
 
 
 class RegisterUserFrame(CustomFrame):
@@ -27,18 +27,18 @@ class RegisterUserFrame(CustomFrame):
     def initialize_frame(self):
         # Username
         CustomVerticalInputField(self, "Username", self.registered_username,
-                                 x=self._get_x_center(), y=self._get_y_center(), y_offset=-100)
+                                 x=self.get_x_center(), y=self.get_y_center()-100)
 
         # Username
         CustomVerticalInputField(self, "Master Password", self.registered_password, show='*',
-                                 x=self._get_x_center(), y=self._get_y_center(), y_offset=-25)
+                                 x=self.get_x_center(), y=self.get_y_center()-25)
 
         CustomVerticalInputField(self, "Confirm Password", self.registered_Cpassword, show='*',
-                                 x=self._get_x_center(), y=self._get_y_center(), y_offset=50)
+                                 x=self.get_x_center(), y=self.get_y_center()+50)
 
         # region Submit
         submit_button = tk.Button(self, text="Sign Up", command=self.submit_command)
-        submit_button.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
+        submit_button.place(x=self.get_x_center(), y=self.get_y_center() + 125, anchor=tk.CENTER)
         # endregion
 
     # endregion
@@ -53,13 +53,13 @@ class RegisterUserFrame(CustomFrame):
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text="Please fill in all the fields", fg="red")
-            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             return
         while (password != Cpassword):
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text="confirm password does not match", fg="red")
-            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             return
         from Registeration_Login import register_user
         from ui.frames.main_menu_frame import MainMenuFrame

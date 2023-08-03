@@ -1,6 +1,6 @@
 import tkinter as tk
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
-from ui.frames.CustomFrame import CustomFrame
+from ui.frames.custom_frame  import CustomFrame
 
 
 class MainMenuFrame(CustomFrame):
@@ -32,18 +32,18 @@ class MainMenuFrame(CustomFrame):
 
         # Username
         CustomVerticalInputField(self, "Username", self.username_var,
-                                 x=self._get_x_center(), y=self._get_y_center(), y_offset=-100)
+                                 x=self.get_x_center(), y=self.get_y_center()-100)
 
         # Username
         CustomVerticalInputField(self, "Master Password", self.master_password_var, show='*',
-                                 x=self._get_x_center(), y=self._get_y_center(), y_offset=-25)
+                                 x=self.get_x_center(), y=self.get_y_center()-25)
 
         # region Submit
         submit_button = tk.Button(self, text="Don't have an account ?", command=self.switch_to_register)
-        submit_button.place(x=self._get_x_center()+220, y=self._get_y_center() -180, anchor=tk.CENTER)
+        submit_button.place(x=self.get_x_center()+220, y=self.get_y_center() -180, anchor=tk.CENTER)
 
         submit_button = tk.Button(self, text="Sign in", command=self.submit_command)
-        submit_button.place(x=self._get_x_center(), y=self._get_y_center()+70 , anchor=tk.CENTER)
+        submit_button.place(x=self.get_x_center(), y=self.get_y_center()+70 , anchor=tk.CENTER)
 
 
         # endregion
@@ -63,7 +63,7 @@ class MainMenuFrame(CustomFrame):
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text=str_error, fg="red")
-            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             print("Please fill in all the fields")
             return
 
@@ -76,7 +76,7 @@ class MainMenuFrame(CustomFrame):
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text=lbl1, fg="green")
-            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 100, anchor=tk.CENTER)
+            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
 
             return True
 
@@ -85,7 +85,7 @@ class MainMenuFrame(CustomFrame):
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text=lbl2, fg="red")
-            self.error_label.place(x=self._get_x_center(), y=self._get_y_center() + 125, anchor=tk.CENTER)
+            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 125, anchor=tk.CENTER)
 
         return False
 
