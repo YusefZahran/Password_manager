@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import globals
+from account import Account
 from ui.components.account_component import AccountComponent
 from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
@@ -80,8 +81,11 @@ class AccountsListFrame(AbstractFrame):
         list_canvas.create_window(0, 0, window=inner_frame, anchor=tk.NW)
 
         for i in range(10):
-            self.accounts_lists.append(AccountComponent(inner_frame, "Facebook", "codgamer69@yahoo.com",
-                                                        ["fb", "meta", "codgamer"]))
+            self.accounts_lists.append(
+                AccountComponent(inner_frame,
+                                 Account("Facebook", "codgamer69@yahoo.com",
+                                         "PASSWORD",
+                                         ["fb", "meta", "codgamer"])))
             self.accounts_lists[i].pack()
 
         # Update the scroll region based on the inner frame's size

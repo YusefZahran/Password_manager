@@ -6,7 +6,7 @@ from ui.components.account_component import AccountComponent
 
 class CustomAccountsListbox(tk.Listbox):
     """Custom Listbox class. Derived from Tkinter Listbox"""
-    def __init__(self, master: tk.Misc, accounts :[AccountComponent] = None, x: int = 0, y: int = 0):
+    def __init__(self, master: tk.Misc, accounts: [AccountComponent] = None, x: int = 0, y: int = 0):
         """
         Custom Entry constructor
         :param master: The master (parent) component for the entry to be relative to

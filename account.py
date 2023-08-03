@@ -1,7 +1,7 @@
 import string
 
 
-class Password:
+class Account:
     title: string
     username: string
     __password: string
