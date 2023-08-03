@@ -5,7 +5,7 @@ import globals
 
 class CustomLabel(tk.Label):
     """Custom Label class. Derived from Tkinter Label"""
-    def __init__(self, master: tk.Misc, text: str = None, x: int = 0, y: int = 0):
+    def __init__(self, master: tk.Misc, text: str = None, justify="center", x: int = 0, y: int = 0):
         """
         Custom Label constructor
         :param master: The master (parent) component for the entry to be relative to
@@ -15,7 +15,8 @@ class CustomLabel(tk.Label):
         """
         super().__init__(master,
                          text=text,
-                         justify="center",
+                         justify=justify,
+                         anchor=tk.W,
                          foreground=globals.LABEL_FOREGROUND_COLOR,
                          background=globals.PROGRAM_BACKGROUND_COLOR)
         self.place(x=x, y=y, anchor=tk.CENTER)

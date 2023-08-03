@@ -1,16 +1,18 @@
 import tkinter as tk
 
+from ui.components.custom_button import CustomButton
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
-from ui.frames.custom_frame import CustomFrame
+from ui.frames.abstract_frame import AbstractFrame
 
 
-class SignInForm(CustomFrame):
+class SignInForm(AbstractFrame):
     """Sign in form frame"""
     # region Properties
     username_var: tk.StringVar
     """The username variable linked to the username entry"""
     master_password_var: tk.StringVar
     """The master password variable linked to the username entry"""
+
     # endregion
 
     # region Constructor
@@ -31,17 +33,18 @@ class SignInForm(CustomFrame):
         """Initializes the frame by drawing the components needed"""
         # Username Field
         CustomVerticalInputField(self, "Username", self.username_var,
-                                 x=self._get_x_center(), y=self._get_y_center() - 100)
+                                 x=self.get_x_center(), y=self.get_y_center() - 100)
 
         # Master Password Field
         CustomVerticalInputField(self, "Master Password", self.master_password_var, show='ඞ',
-                                 x=self._get_x_center(), y=self._get_y_center() - 25)
+                                 x=self.get_x_center(), y=self.get_y_center() - 25)
 
         # region Submit
-        submit_button = tk.Button(self, text="Sign in", command=self.submit_command)
-        submit_button.place(x=self._get_x_center(), y=self._get_y_center() + 70, anchor=tk.CENTER)
+        CustomButton(self, "Sign in", self.submit_command, x=self.get_x_center(), y=self.get_y_center() + 70)
         # endregion
 
+    def show(self):
+        super().show()
     # endregion
 
     # region Commands

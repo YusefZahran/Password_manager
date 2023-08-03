@@ -1,7 +1,7 @@
 import tkinter as tk
 
 import globals
-from ui.frames.custom_frame import CustomFrame
+from ui.frames.abstract_frame import AbstractFrame
 
 
 class RootWidget(tk.Tk):
@@ -18,8 +18,8 @@ class RootWidget(tk.Tk):
     def __initialize_widget(self):
         """Initializes the root widget by setting up the dimensions, location, and necessary components"""
         # region Set window position
-        width = globals.MAIN_MENU_WIDGET_WIDTH
-        height = globals.MAIN_MENU_WIDGET_HEIGHT
+        width = globals.ROOT_WIDGET_WIDTH
+        height = globals.ROOT_WIDGET_HEIGHT
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x = int((screen_width / 2) - (width / 2))
@@ -47,8 +47,11 @@ class RootWidget(tk.Tk):
             child.destroy()
 
     @staticmethod
-    def add_frame(frame: tk.Frame):
+    def add_frame(frame: tk.Frame | AbstractFrame):
         """Adds a frame to the root widget and initializes it"""
-        frame.pack(expand=True, fill=tk.BOTH)
-
+        # frame.pack(expand=True, fill=tk.BOTH)
+        if frame is AbstractFrame:
+            frame.show()
+        else:
+            frame.pack(expand=True, fill=tk.BOTH)
     # endregion
