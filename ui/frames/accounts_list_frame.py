@@ -32,11 +32,12 @@ class AccountsListFrame(AbstractFrame):
     # region Properties
     search_var: tk.StringVar
     """The search variable linked to the search bar"""
-    sort_options = ["Name", "Date", "Tag"]
+    sort_options = ["Title", "Username"]
     """The options in the sort menu"""
     filter_options = ["TEST TAG 1", "TEST TAG 2"]
 
-    accounts_lists: [AccountComponent] = []
+    account_components: [AccountComponent] = []
+    accounts: [Account] = []
 
     # endregion
 
@@ -60,7 +61,7 @@ class AccountsListFrame(AbstractFrame):
     # region UI
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed"""
-
+        AccountsListFrame.accounts = test_accounts_1
         # Top bar elements
         top_bar = CustomFrame(self)
         top_bar.configure(width=globals.ROOT_WIDGET_WIDTH, height=50)
@@ -72,6 +73,7 @@ class AccountsListFrame(AbstractFrame):
         CustomOptionInput(top_bar, self.sort_var, self.sort_options, "Sort", command=self.sort_command, x=300, y=20)
 
         # Filter button
+        self.set_filter_options()
         CustomOptionInput(top_bar, self.filter_var, self.filter_options, "Filter", command=self.filter_command, x=420,
                           y=20)
 
@@ -96,7 +98,7 @@ class AccountsListFrame(AbstractFrame):
         self.list_canvas.config(yscrollcommand=vbar.set)
 
         # Create a frame inside the canvas to hold the AccountComponent widgets
-        self.display_accounts(self.list_canvas, test_accounts_1)
+        self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
 
         # Update the scroll region based on the inner frame's size
         self.list_canvas.update_idletasks()
@@ -120,8 +122,8 @@ class AccountsListFrame(AbstractFrame):
         master.create_window(0, 0, window=self.inner_frame, anchor=tk.NW)
 
         for account in accounts:
-            self.accounts_lists.append(AccountComponent(self.inner_frame, account))
-            self.accounts_lists[-1].pack()
+            self.account_components.append(AccountComponent(self.inner_frame, account))
+            self.account_components[-1].pack()
 
     def search_command(self):
         self.display_accounts(self.list_canvas, test_accounts_2)
@@ -130,7 +132,24 @@ class AccountsListFrame(AbstractFrame):
     def sort_command(self):
         print("sort: {}".format(self.sort_var.get()))
 
+    def set_filter_options(self):
+        unique_details = set()
+        for account in self.accounts:
+            for detail in account.details:
+                unique_details.add(detail)
+        self.filter_options = list(unique_details)
+
     def filter_command(self):
+        detail = self.filter_var.get()
+        if detail == "-":
+            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            return
+        filtered_accounts = []
+        for account in AccountsListFrame.accounts:
+            if detail in account.details:
+                filtered_accounts.append(account)
+
+        self.display_accounts(self.list_canvas, filtered_accounts)
         print("filter: {}".format(self.filter_var.get()))
 
     def switch_to_add_account_frame(self):
