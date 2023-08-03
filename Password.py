@@ -7,7 +7,7 @@ class Account:
     __password: string
     details: string = []
 
-    def __init__(self, title, username, password, details):
+    def __init__(self, title, username, password, details=None):
         self.title = title
         self.username = username
         self.__password = password

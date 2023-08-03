@@ -1,7 +1,9 @@
 from FileManager import FileManager
+from Password import Account
 from PasswordManager import PasswordManager
 from cryptographer import Cryptographer
 from ui.frames.sign_in_form import SignInForm
+from ui.frames.show_password_form import ShowPasswordForm
 from ui.root_widget import RootWidget
 
 
@@ -27,10 +29,13 @@ def ui_test():
     root = RootWidget()
     root.clear_canvas()
 
-    main_menu = SignInForm(root)
-    root.add_frame(main_menu)
-    root.wait_window(main_menu)
-    print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+    #main_menu = SignInForm(root)
+    #root.add_frame(main_menu)
+    #root.wait_window(main_menu)
+    spf = ShowPasswordForm(root, Account("dbz" ,"joe", "K4rlM7rx", ))
+    root.add_frame((spf))
+    root.wait_window(spf)
+    #print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
 
     root.show()
 

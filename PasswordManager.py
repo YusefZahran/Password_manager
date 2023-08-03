@@ -1,11 +1,11 @@
 import random
 import string
 
-from Password import Password
+from Password import Account
 
 
 class PasswordManager:
-    list_of_passwords: [Password] = []
+    list_of_passwords: [Account] = []
 
     # currently assuming there's only one user, otherwise the list of passwords will be in a usermanager file
 

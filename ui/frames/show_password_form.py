@@ -16,10 +16,14 @@ class ShowPasswordForm(CustomFrame):
     details_var: string
     # endregion
 
-    def __init__(self, master: tk.Misc,account: Account):
+    def __init__(self, master: tk.Misc, account: Account):
+        super().__init__(master)
         title_var = account.title
         username_var = account.username
         password_var = account.get_password()
         # details = account.details
-        t_label = CustomLabel(self, master, text=title_var, x=50, y=50)
-        super.__init__(super, master)
+
+
+
+    def initialize_frame(self):
+        t_label = CustomLabel(self, text="title", x=50, y=50)
