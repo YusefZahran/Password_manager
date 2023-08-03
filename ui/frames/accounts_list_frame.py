@@ -10,7 +10,7 @@ from ui.frames.abstract_frame import AbstractFrame
 from ui.frames.custom_frame import CustomFrame
 
 # TODO: Make this not explode with too many tags
-test_accounts_1 = [Account("Facebook",
+test_accounts_1 = [Account("Xacebook",
                            "codgamer69@yahoo.com",
                            "PASSWORD1",
                            ["fb", "meta", "codgamer"]),
@@ -19,12 +19,6 @@ test_accounts_1 = [Account("Facebook",
                            "PASSWORD2",
                            ["twitter", "x", "codgamer", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                             "n", "o"])]
-
-test_accounts_2 = [Account("sex",
-                           "codgamer69@yahoo.com",
-                           "PASSWORD1",
-                           ["fb", "meta", "codgamer"]),
-                   ]
 
 
 class AccountsListFrame(AbstractFrame):
@@ -126,11 +120,32 @@ class AccountsListFrame(AbstractFrame):
             self.account_components[-1].pack()
 
     def search_command(self):
-        self.display_accounts(self.list_canvas, test_accounts_2)
-        print("search: {}".format(self.search_var.get()))
+        search_string = self.search_var.get().lower()
+        if search_string == "":
+            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            return
+
+        filtered_accounts = []
+        for account in AccountsListFrame.accounts:
+            if search_string in account.title.lower() or search_string in account.username.lower() or search_string in [detail.lower() for detail in account.details]:
+                filtered_accounts.append(account)
+
+        self.display_accounts(self.list_canvas, filtered_accounts)
 
     def sort_command(self):
-        print("sort: {}".format(self.sort_var.get()))
+        sort_by = self.sort_var.get()
+        if sort_by == "-":
+            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            return
+
+        sorted_accounts = []
+        match sort_by:
+            case "Title":
+                sorted_accounts = sorted(AccountsListFrame.accounts, key=lambda account: account.title)
+            case "Username":
+                sorted_accounts = sorted(AccountsListFrame.accounts, key=lambda account: account.username)
+
+        self.display_accounts(self.list_canvas, sorted_accounts)
 
     def set_filter_options(self):
         unique_details = set()
@@ -150,7 +165,6 @@ class AccountsListFrame(AbstractFrame):
                 filtered_accounts.append(account)
 
         self.display_accounts(self.list_canvas, filtered_accounts)
-        print("filter: {}".format(self.filter_var.get()))
 
     def switch_to_add_account_frame(self):
         self.pack_forget()
