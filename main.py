@@ -4,6 +4,7 @@ from cryptographer import Cryptographer
 from ui.components.account_component import AccountComponent
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
+from ui.frames.show_password_form import ShowPasswordForm
 from ui.root_widget import RootWidget
 
 
@@ -34,12 +35,6 @@ def ui_test():
     root.wait_window(main_menu)
 
     print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
-
-    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-    root.add_frame(AccountComponent(root, "Facebook", "codgamer69@yahoo.com", ["fb", "meta", "codgamer"]))
-
     root.show()
 
 
