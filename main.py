@@ -1,8 +1,10 @@
-from FileManager import FileManager
-from PasswordManager import PasswordManager
+from file_manager import FileManager
+from password_manager import PasswordManager
 from cryptographer import Cryptographer
+from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
 from ui.root_widget import RootWidget
+from Registeration_Login import ui_login
 
 
 # region Tests
@@ -30,47 +32,46 @@ def ui_test():
     main_menu = SignInForm(root)
     root.add_frame(main_menu)
     root.wait_window(main_menu)
+
     print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+    root.show()
+
+
+def ui_accounts_list_test():
+    root = RootWidget()
+    root.clear_canvas()
+
+    main_menu = AccountsListFrame(root)
+    root.add_frame(main_menu)
+    root.wait_window(main_menu)
 
     root.show()
 
 
-def registration_test():
-    registered_users = {}
+def cryptographer_test():
+    username = "admin"
+    master_password = "P@ssw0rd"
 
-    def register_user():
-        # Get user input for username and password
-        username = input("Enter your username: ")
-        password = input("Enter your password: ")
+    encrypter = Cryptographer(username, master_password)
 
-        # Save the username and password in the dictionary
-        registered_users[username] = password
+    entry = "pass"
+    token = encrypter.encrypt_entry(entry)
 
-        print("Registration Successful!")
-        return 0
+    decrypter = Cryptographer(username, master_password)
 
-    def login():
-        # Get user input for login credentials
-        username = input("Enter your username: ")
-        password = input("Enter your password: ")
+    decrypted = decrypter.decrypt_entry(token)
 
-        # Check if the entered username and password match the dictionary entries
-        if username in registered_users and registered_users[username] == password:
-            print("Login Successful!")
-            return True
-        else:
-            print("Invalid username or password. Please try again.")
-            return False
+    print(decrypted)
 
-    register_user()
-    # login()
-    if login():
-        # Place code here that executes after successful login
-        print("Welcome to the system!")
-    else:
-        # Place code here that executes when login fails
-        print("Access denied.")
-    print("Test!")
+
+def file_manager_test():
+    pm = PasswordManager()
+    pm.add_password()
+
+    fm = FileManager()
+
+    fm.save_passwords()
+    print(fm.load_passwords())
 
 
 def password_manager_test():
@@ -94,21 +95,32 @@ def file_manager_test():
     print(fm.load_passwords())
 
 
+def registration_ui_test():
+    if ui_login():
+        # Place code here that executes after successful login
+        print("Welcome to the system!")
+    else:
+        # Place code here that executes when login fails
+        print("Access denied.")
+
+
 # endregion
 
 # region Main
 def main():
-    cryptographer_test()
+    registration_ui_test()
+    ui_accounts_list_test()
     ui_test()
-    registration_test()
 
+    cryptographer_test()
     password_manager_test()
-
     file_manager_test()
     return 0
 
 
+# endregion
+
+# region Main
 if __name__ == '__main__':
     main()
-
 # endregion

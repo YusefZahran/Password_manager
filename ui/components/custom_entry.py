@@ -4,7 +4,7 @@ import globals
 
 
 class CustomEntry(tk.Entry):
-    """Custom Label class. Derived from Tkinter Entry"""
+    """Custom Entry class. Derived from Tkinter Entry"""
     def __init__(self, master: tk.Misc, text_variable: tk.Variable = None, show: str = None, x: int = 0, y: int = 0):
         """
         Custom Entry constructor
