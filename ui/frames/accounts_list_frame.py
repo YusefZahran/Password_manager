@@ -15,7 +15,7 @@ test_accounts_1 = [Account("Xacebook",
                            "PASSWORD1",
                            ["fb", "meta", "codgamer"]),
                    Account("Twitter",
-                           "codgamer69@yahoo.com",
+                           "mcgamer69@yahoo.com",
                            "PASSWORD2",
                            ["twitter", "x", "codgamer", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
                             "n", "o"])]
@@ -127,10 +127,16 @@ class AccountsListFrame(AbstractFrame):
 
         filtered_accounts = []
         for account in AccountsListFrame.accounts:
-            if search_string in account.title.lower() or search_string in account.username.lower() or search_string in [detail.lower() for detail in account.details]:
+            if search_string in account.title.lower() \
+                    or self.matches_pattern(search_string, account.username.lower()) \
+                    or any(self.matches_pattern(search_string, detail.lower()) for detail in account.details):
                 filtered_accounts.append(account)
 
         self.display_accounts(self.list_canvas, filtered_accounts)
+
+    @staticmethod
+    def matches_pattern(query, text):
+        return text.startswith(query) or any(part.startswith(query) for part in text.split('@'))
 
     def sort_command(self):
         sort_by = self.sort_var.get()
