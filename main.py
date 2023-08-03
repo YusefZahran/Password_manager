@@ -1,10 +1,8 @@
 from file_manager import FileManager
 from password_manager import PasswordManager
 from cryptographer import Cryptographer
-from ui.components.account_component import AccountComponent
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
-from ui.frames.show_password_form import ShowPasswordForm
 from ui.root_widget import RootWidget
 
 
