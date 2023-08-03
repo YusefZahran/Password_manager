@@ -9,6 +9,23 @@ from ui.components.custom_search_bar import CustomSearchBar
 from ui.frames.abstract_frame import AbstractFrame
 from ui.frames.custom_frame import CustomFrame
 
+# TODO: Make this not explode with too many tags
+test_accounts_1 = [Account("Facebook",
+                           "codgamer69@yahoo.com",
+                           "PASSWORD1",
+                           ["fb", "meta", "codgamer"]),
+                   Account("Twitter",
+                           "codgamer69@yahoo.com",
+                           "PASSWORD2",
+                           ["twitter", "x", "codgamer", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+                            "n", "o"])]
+
+test_accounts_2 = [Account("sex",
+                           "codgamer69@yahoo.com",
+                           "PASSWORD1",
+                           ["fb", "meta", "codgamer"]),
+                   ]
+
 
 class AccountsListFrame(AbstractFrame):
     """Accounts list frame"""
@@ -32,6 +49,8 @@ class AccountsListFrame(AbstractFrame):
         self.filter_var = tk.StringVar()
         self.sort_var = tk.StringVar()
         self.search_var = tk.StringVar()
+        self.list_canvas = None
+        self.inner_frame = None
 
         # Parent constructor
         super().__init__(master)
@@ -66,37 +85,28 @@ class AccountsListFrame(AbstractFrame):
         list_frame = tk.Frame(self, width=300, height=300)
         list_frame.pack(expand=True, fill=tk.BOTH)
 
-        list_canvas = tk.Canvas(list_frame, bg=globals.PROGRAM_BACKGROUND_COLOR, highlightthickness=0,
-                                scrollregion=(0, 0, 500, 500))
+        self.list_canvas = tk.Canvas(list_frame, bg=globals.PROGRAM_BACKGROUND_COLOR, highlightthickness=0,
+                                     scrollregion=(0, 0, 500, 500))
 
         vbar = tk.Scrollbar(list_frame, orient=tk.VERTICAL)
         vbar.pack(side=tk.RIGHT, fill=tk.Y)
-        vbar.config(command=list_canvas.yview)
+        vbar.config(command=self.list_canvas.yview)
 
-        list_canvas.config(width=300, height=300)
-        list_canvas.config(yscrollcommand=vbar.set)
+        self.list_canvas.config(width=300, height=300)
+        self.list_canvas.config(yscrollcommand=vbar.set)
 
         # Create a frame inside the canvas to hold the AccountComponent widgets
-        inner_frame = tk.Frame(list_canvas)
-        list_canvas.create_window(0, 0, window=inner_frame, anchor=tk.NW)
-
-        for i in range(10):
-            self.accounts_lists.append(
-                AccountComponent(inner_frame,
-                                 Account("Facebook", "codgamer69@yahoo.com",
-                                         "PASSWORD",
-                                         ["fb", "meta", "codgamer"])))
-            self.accounts_lists[i].pack()
+        self.display_accounts(self.list_canvas, test_accounts_1)
 
         # Update the scroll region based on the inner frame's size
-        list_canvas.update_idletasks()
-        list_canvas.config(scrollregion=list_canvas.bbox(tk.ALL))
+        self.list_canvas.update_idletasks()
+        self.list_canvas.config(scrollregion=self.list_canvas.bbox(tk.ALL))
 
-        list_canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+        self.list_canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
         # Bind the mouse scroll event to the canvas
-        list_canvas.bind_all("<MouseWheel>",
-                             lambda event: list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
+        self.list_canvas.bind_all("<MouseWheel>",
+                                  lambda event: self.list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
 
     def show(self):
         super().show()
@@ -104,7 +114,17 @@ class AccountsListFrame(AbstractFrame):
     # endregion
 
     # region Commands
+    def display_accounts(self, master: tk.Canvas, accounts: [Account]):
+        master.delete(tk.ALL)
+        self.inner_frame = tk.Frame(master)
+        master.create_window(0, 0, window=self.inner_frame, anchor=tk.NW)
+
+        for account in accounts:
+            self.accounts_lists.append(AccountComponent(self.inner_frame, account))
+            self.accounts_lists[-1].pack()
+
     def search_command(self):
+        self.display_accounts(self.list_canvas, test_accounts_2)
         print("search: {}".format(self.search_var.get()))
 
     def sort_command(self):
