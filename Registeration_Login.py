@@ -1,16 +1,13 @@
-import tkinter
 from ui.frames.main_menu_frame import MainMenuFrame
 from ui.frames.Register_User_frame import RegisterUserFrame
 from ui.root_widget import RootWidget
-
-
 
 # region Registration
 # Dictionary to store registered users' credentials
 registered_users = {}
 
 
-def register_user(Username , String):
+def register_user(Username, String):
     # Get user input for username and password
     username = Username
     password = String
@@ -22,7 +19,7 @@ def register_user(Username , String):
     return 0
 
 
-def login(username,password):
+def login(username, password):
     # Get user input for login credentials
 
     # Check if the entered username and password match the dictionary entries
@@ -34,7 +31,6 @@ def login(username,password):
         return False
 
 
-
 def ui_test_register():
     root = RootWidget()
     root.clear_canvas()
@@ -42,12 +38,13 @@ def ui_test_register():
     reg_screen = RegisterUserFrame(root)
     root.add_frame(reg_screen)
     root.wait_window(reg_screen)
-    #print(f"Received: {reg_screen.registered_username.get()}: {reg_screen.registered_password.get()}")
-    username =reg_screen.registered_username.get()
-    password =reg_screen.registered_password.get()
-    register_user(username,password)
+    # print(f"Received: {reg_screen.registered_username.get()}: {reg_screen.registered_password.get()}")
+    username = reg_screen.registered_username.get()
+    password = reg_screen.registered_password.get()
+    register_user(username, password)
     root.show()
-    #root.destroy()
+    # root.destroy()
+
 
 def ui_login():
     root = RootWidget()
@@ -67,4 +64,3 @@ def ui_login():
         # Place code here that executes when login fails
         return False
     root.destroy()
-

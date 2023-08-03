@@ -2,7 +2,6 @@ import tkinter as tk
 
 import globals
 from account import Account
-from ui.components.custom_button import CustomButton
 from ui.components.custom_label import CustomLabel
 from ui.frames.abstract_frame import AbstractFrame
 from ui.frames.custom_frame import CustomFrame

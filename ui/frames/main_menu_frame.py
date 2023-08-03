@@ -1,12 +1,13 @@
 import tkinter as tk
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
-from ui.frames.custom_frame  import CustomFrame
+from ui.frames.custom_frame import CustomFrame
 
 
 class MainMenuFrame(CustomFrame):
     # region Properties
     username_var: tk.StringVar
     master_password_var: tk.StringVar
+
     # endregion
 
     # region Constructor
@@ -15,6 +16,7 @@ class MainMenuFrame(CustomFrame):
         self.master_password_var = tk.StringVar()
         self.error_label = None
         super().__init__(master)
+
     # endregion
     def switch_to_register(self):
         # Clear the current frame
@@ -23,8 +25,9 @@ class MainMenuFrame(CustomFrame):
         from ui.frames.Register_User_frame import RegisterUserFrame
         self.pack_forget()
         RegisterUserFrame(self.master).show()
-        #RegisterUserFrame(self.master).pack()
+        # RegisterUserFrame(self.master).pack()
         self.destroy_frame()
+
     #    self.destroy_frame()
 
     # region UI
@@ -32,23 +35,20 @@ class MainMenuFrame(CustomFrame):
 
         # Username
         CustomVerticalInputField(self, "Username", self.username_var,
-                                 x=self.get_x_center(), y=self.get_y_center()-100)
+                                 x=self.get_x_center(), y=self.get_y_center() - 100)
 
         # Username
         CustomVerticalInputField(self, "Master Password", self.master_password_var, show='*',
-                                 x=self.get_x_center(), y=self.get_y_center()-25)
+                                 x=self.get_x_center(), y=self.get_y_center() - 25)
 
         # region Submit
         submit_button = tk.Button(self, text="Don't have an account ?", command=self.switch_to_register)
-        submit_button.place(x=self.get_x_center()+220, y=self.get_y_center() -180, anchor=tk.CENTER)
+        submit_button.place(x=self.get_x_center() + 220, y=self.get_y_center() - 180, anchor=tk.CENTER)
 
         submit_button = tk.Button(self, text="Sign in", command=self.submit_command)
-        submit_button.place(x=self.get_x_center(), y=self.get_y_center()+70 , anchor=tk.CENTER)
-
+        submit_button.place(x=self.get_x_center(), y=self.get_y_center() + 70, anchor=tk.CENTER)
 
         # endregion
-
-
 
     # endregion
 
@@ -58,8 +58,8 @@ class MainMenuFrame(CustomFrame):
         str_error = "Please fill in all the fields"
         lbl1 = "Login Successful! Welcome to the system!"
         lbl2 = "Username or password may be wrong "
-        emptystr = ""
-        while(self.username_var.get() == "" or self.master_password_var.get() == ""):
+
+        if self.username_var.get() == "" or self.master_password_var.get() == "":
             if self.error_label is not None:
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text=str_error, fg="red")
@@ -87,7 +87,6 @@ class MainMenuFrame(CustomFrame):
             self.error_label = tk.Label(self, text=lbl2, fg="red")
             self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 125, anchor=tk.CENTER)
 
-        return False
-
         self.destroy_frame()
+        return False
     # endregion

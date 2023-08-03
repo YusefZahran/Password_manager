@@ -3,10 +3,8 @@ from password_manager import PasswordManager
 from cryptographer import Cryptographer
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
-from ui.frames.main_menu_frame import MainMenuFrame
-from ui.frames.Register_User_frame import RegisterUserFrame
 from ui.root_widget import RootWidget
-from Registeration_Login import *
+from Registeration_Login import ui_login
 
 
 # region Tests
@@ -50,13 +48,6 @@ def ui_accounts_list_test():
     root.show()
 
 
-
-
-
-# endregion
-
-# region Tests
-
 def cryptographer_test():
     username = "admin"
     master_password = "P@ssw0rd"
@@ -71,8 +62,6 @@ def cryptographer_test():
     decrypted = decrypter.decrypt_entry(token)
 
     print(decrypted)
-
-
 
 
 def file_manager_test():
@@ -105,29 +94,33 @@ def file_manager_test():
     fm.save_passwords()
     print(fm.load_passwords())
 
-# endregion
 
-# region Main
-def main():
-   # cryptographer_test()
-
-    """ Main program """
-    # login()
+def registration_ui_test():
     if ui_login():
         # Place code here that executes after successful login
         print("Welcome to the system!")
     else:
         # Place code here that executes when login fails
         print("Access denied.")
+
+
+# endregion
+
+# region Main
+def main():
+    registration_ui_test()
+    ui_accounts_list_test()
+    ui_test()
+
+    cryptographer_test()
+    password_manager_test()
+    file_manager_test()
     return 0
 
 
 # endregion
 
 # region Main
-
-
 if __name__ == '__main__':
     main()
-
 # endregion
