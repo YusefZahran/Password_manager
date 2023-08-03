@@ -1,12 +1,14 @@
 import tkinter as tk
 
 import globals
-from ui.frames.main_menu_frame import MainMenuFrame
+from ui.frames.abstract_frame import AbstractFrame
 
 
 class RootWidget(tk.Tk):
+    """The root widget for the application. Inherits from Tkinter Tk"""
     # region Constructor
     def __init__(self):
+        """Root widget constructor"""
         super().__init__()
         self.__initialize_widget()
 
@@ -14,9 +16,10 @@ class RootWidget(tk.Tk):
 
     # region UI
     def __initialize_widget(self):
+        """Initializes the root widget by setting up the dimensions, location, and necessary components"""
         # region Set window position
-        width = globals.MAIN_MENU_WIDGET_WIDTH
-        height = globals.MAIN_MENU_WIDGET_HEIGHT
+        width = globals.ROOT_WIDGET_WIDTH
+        height = globals.ROOT_WIDGET_HEIGHT
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x = int((screen_width / 2) - (width / 2))
@@ -32,20 +35,23 @@ class RootWidget(tk.Tk):
         # endregion
 
     def show(self):
+        """Launches the root widget"""
         self.mainloop()
 
     # endregion
 
     # region Frames
     def clear_canvas(self):
+        """Clears the canvas by destroying all children"""
         for child in self.winfo_children():
             child.destroy()
 
     @staticmethod
-    def add_frame(frame: tk.Frame | MainMenuFrame):
-        if frame is tk.Frame:
-            frame.pack(expand=True, fill=tk.BOTH)
-        else:
+    def add_frame(frame: tk.Frame | AbstractFrame):
+        """Adds a frame to the root widget and initializes it"""
+        # frame.pack(expand=True, fill=tk.BOTH)
+        if frame is AbstractFrame:
             frame.show()
-
+        else:
+            frame.pack(expand=True, fill=tk.BOTH)
     # endregion
