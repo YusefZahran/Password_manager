@@ -47,6 +47,8 @@ class AccountsListFrame(AbstractFrame):
         self.search_var = tk.StringVar()
         self.list_canvas = None
         self.inner_frame = None
+        self.is_edit = False
+        self.selected_account = None
 
         # Parent constructor
         super().__init__(master)
@@ -74,7 +76,7 @@ class AccountsListFrame(AbstractFrame):
 
         # Add account button
         CustomButton(top_bar, "Add Account", button_size=globals.SMALL_BUTTON_SIZE,
-                     command=self.switch_to_add_account_frame, x=540, y=20)
+                     command=self.add_account_frame, x=540, y=20)
 
         top_bar.pack()
 
@@ -119,16 +121,15 @@ class AccountsListFrame(AbstractFrame):
         row = 0
 
         for account in accounts:
-            account_component = AccountComponent(self.inner_frame, account)
-            account_component.grid(row=row, column=0)
-            btn = CustomFrame(self.inner_frame)
-            btn.configure(width=globals.ROOT_WIDGET_WIDTH - 50, height=75, padx=10, pady=20, background='')
-            btn.grid(row=row, column=0)
-            btn.bind("<Button-1>", self.test)
-            self.account_components.append(account_component)
+            def func(a=account):
+                return self.edit_account(a)
 
+            account_component = AccountComponent(self.inner_frame, account)
+            account_component.grid(row=row, column=0, columnspan=2)
+            btn = CustomButton(self.inner_frame, text="Edit Account", command=func)
+            btn.grid(row=row, column=1)
+            self.account_components.append(account_component)
             row += 1
-            # self.account_components[-1].pack()
 
     def search_command(self):
         search_string = self.search_var.get().lower()
@@ -183,10 +184,14 @@ class AccountsListFrame(AbstractFrame):
 
         self.display_accounts(self.list_canvas, filtered_accounts)
 
-    def switch_to_add_account_frame(self):
+    def add_account_frame(self):
+        self.is_edit = False
         self.pack_forget()
         self.destroy_frame()
 
-    def test(self, event: tk.Event):
-        print("Test")
+    def edit_account(self, account: Account):
+        self.is_edit = True
+        self.selected_account = account
+        self.pack_forget()
+        self.destroy_frame()
     # endregion

@@ -20,7 +20,7 @@ class AccountComponent(AbstractFrame):
         inner_frame.configure(width=globals.ROOT_WIDGET_WIDTH - 50, height=75, padx=10, pady=20,
                               highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
         inner_frame.pack()
-        inner_frame.bind("<Button-1>", self.show_account_info)
+        # inner_frame.bind("<Button-1>", self.show_account_info)
 
         frame_y_center = 15
 
