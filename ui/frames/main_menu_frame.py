@@ -2,11 +2,12 @@ import tkinter as tk
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
 
-
+from globals import registered_users
 class MainMenuFrame(CustomFrame):
     # region Properties
     username_var: tk.StringVar
     master_password_var: tk.StringVar
+    is_logged_in: bool
 
     # endregion
 
@@ -15,6 +16,7 @@ class MainMenuFrame(CustomFrame):
         self.username_var = tk.StringVar()
         self.master_password_var = tk.StringVar()
         self.error_label = None
+        self.is_logged_in = False
         super().__init__(master)
 
     # endregion
@@ -70,8 +72,8 @@ class MainMenuFrame(CustomFrame):
         username = self.username_var.get()
         password = self.master_password_var.get()
         self.show()
-        from Registeration_Login import login
-        if login(username, password):
+        #from Registeration_Login import login
+        if self.login(username, password):
             # Place code here that executes after successful login
             if self.error_label is not None:
                 self.error_label.destroy()
@@ -87,6 +89,23 @@ class MainMenuFrame(CustomFrame):
             self.error_label = tk.Label(self, text=lbl2, fg="red")
             self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 125, anchor=tk.CENTER)
 
-        self.destroy_frame()
+        # self.destroy_frame()
         return False
     # endregion
+
+    def login(self,username, password):
+        # Get user input for login credentials
+
+        # Check if the entered username and password match the dictionary entries
+        if username in registered_users and registered_users[username] == password:
+            print("Login Successful!")
+            self.is_logged_in = True
+            self.destroy_frame()
+            return True
+        else:
+            print("Invalid username or password. Please try again.")
+            self.is_logged_in = False
+            return False
+
+
+

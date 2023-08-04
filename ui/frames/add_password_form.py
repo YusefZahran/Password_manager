@@ -7,7 +7,7 @@ from ui.components.custom_label import CustomLabel
 from ui.components.custom_entry import CustomEntry
 
 
-class AddPasswordFrame(CustomFrame):
+class AddAccountFrame(CustomFrame):
     title_var: string
     username_var: string
     password_var: string
@@ -40,7 +40,7 @@ class AddPasswordFrame(CustomFrame):
         CustomLabel(self, text="Password: ", x=50, y=110)
         CustomEntry(self, text_variable=self.password_var, x=160, y=110)
 
-        add_button = tk.Button(self, text="Enter")
+        add_button = tk.Button(self, text="Add", command=self.add_password)
         add_button.place(x=self.get_x_center(), y=self.get_y_center())
 
     def add_password(self):

@@ -1,5 +1,8 @@
 # region General
 PROGRAM_NAME = "Password Manager"
+registered_users = {
+    "h": "h"
+}
 # endregion
 
 # region Passwords

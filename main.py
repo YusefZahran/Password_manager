@@ -1,11 +1,12 @@
 from file_manager import FileManager
 from password_manager import PasswordManager
 from cryptographer import Cryptographer
-from Registeration_Login import MainMenuFrame, login
+from ui.frames.main_menu_frame import MainMenuFrame
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.sign_in_form import SignInForm
+from ui.frames.add_password_form import AddAccountFrame
 from ui.root_widget import RootWidget
-from Registeration_Login import ui_login
+#from Registeration_Login import ui_login
 
 
 # region Tests
@@ -96,13 +97,13 @@ def file_manager_test():
     print(fm.load_passwords())
 
 
-def registration_ui_test():
-    if ui_login():
-        # Place code here that executes after successful login
-        print("Welcome to the system!")
-    else:
-        # Place code here that executes when login fails
-        print("Access denied.")
+# def registration_ui_test():
+#     if ui_login():
+#         # Place code here that executes after successful login
+#         print("Welcome to the system!")
+#     else:
+#         # Place code here that executes when login fails
+#         print("Access denied.")
 
 
 # endregion
@@ -115,24 +116,24 @@ def main():
     main_menu = MainMenuFrame(root)
     root.add_frame(main_menu)
     root.wait_window(main_menu)
-    # print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
-    username = main_menu.username_var.get()
-    password = main_menu.master_password_var.get()
-    root.show()
-    if login(username, password):
-        # Place code here that executes after successful login
+    while(main_menu.is_logged_in):
         root.clear_canvas()
-        # initial_frame = AccountsListFrame(root)
-        # root.add_frame(initial_frame)
-        # root.wait_window(initial_frame)
-
-        return True
-    else:
-        # Place code here that executes when login fails
-        return False
-    root.destroy()
+        account_list = AccountsListFrame(root)
+        root.add_frame(account_list)
+        root.wait_window(account_list)
+        add_account = AddAccountFrame(root)
+        root.add_frame(add_account)
+        root.wait_window(add_account)
 
 
+
+
+
+
+    # print(f"Received: {main_menu.username_var.get()}: {main_menu.master_password_var.get()}")
+    # username = main_menu.username_var.get()
+    # password = main_menu.master_password_var.get()
+    # root.destroy()
     root.show()
     return 0
 

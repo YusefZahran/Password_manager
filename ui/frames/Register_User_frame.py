@@ -3,7 +3,7 @@ import tkinter as tk
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
 from ui.frames.main_menu_frame import MainMenuFrame
-
+from globals import registered_users
 
 class RegisterUserFrame(CustomFrame):
     # region Properties
@@ -65,10 +65,23 @@ class RegisterUserFrame(CustomFrame):
             self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             return
 
+
         # TODO: Fix circular dependancies
-        # register_user(username, password)
+        self.register_user(username, password)
         self.pack_forget()
         MainMenuFrame(self.master).show()
         self.destroy_frame()
         self.pack_forget()
     # endregion
+
+    def register_user(self,Username, String):
+        # Get user input for username and password
+        username = Username
+        password = String
+
+        # Save the username and password in the dictionary
+        registered_users[username] = password
+
+        print("Registration Successful!")
+        return 0
+
