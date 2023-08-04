@@ -11,7 +11,7 @@ class AddAccountFrame(CustomFrame):
     title_var: string
     username_var: string
     password_var: string
-    details_var: string
+    details_var: [string]
     title_var_entry: tk.StringVar
     username_var_entry: tk.StringVar
     password_var_entry: tk.StringVar

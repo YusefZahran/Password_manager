@@ -1,6 +1,7 @@
 import tkinter as tk
 
 import globals
+from globals import accounts
 from account import Account
 from ui.components.account_component import AccountComponent
 from ui.components.custom_button import CustomButton
@@ -32,7 +33,7 @@ class AccountsListFrame(AbstractFrame):
     filter_options = ["TEST TAG 1", "TEST TAG 2"]
 
     account_components: [AccountComponent] = []
-    accounts: [Account] = []
+
 
     # endregion
 
@@ -58,7 +59,7 @@ class AccountsListFrame(AbstractFrame):
     # region UI
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed"""
-        AccountsListFrame.accounts = test_accounts_1
+        accounts = test_accounts_1
         # Top bar elements
         top_bar = CustomFrame(self)
         top_bar.configure(width=globals.ROOT_WIDGET_WIDTH, height=50)
@@ -95,7 +96,7 @@ class AccountsListFrame(AbstractFrame):
         self.list_canvas.config(yscrollcommand=vbar.set)
 
         # Create a frame inside the canvas to hold the AccountComponent widgets
-        self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+        self.display_accounts(self.list_canvas, accounts)
 
         # Update the scroll region based on the inner frame's size
         self.list_canvas.update_idletasks()
@@ -134,11 +135,11 @@ class AccountsListFrame(AbstractFrame):
     def search_command(self):
         search_string = self.search_var.get().lower()
         if search_string == "":
-            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            self.display_accounts(self.list_canvas, accounts)
             return
 
         filtered_accounts = []
-        for account in AccountsListFrame.accounts:
+        for account in accounts:
             if search_string in account.title.lower() \
                     or self.matches_pattern(search_string, account.username.lower()) \
                     or any(self.matches_pattern(search_string, detail.lower()) for detail in account.details):
@@ -153,32 +154,40 @@ class AccountsListFrame(AbstractFrame):
     def sort_command(self):
         sort_by = self.sort_var.get()
         if sort_by == "-":
-            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            self.display_accounts(self.list_canvas, accounts)
             return
 
         sorted_accounts = []
         match sort_by:
             case "Title":
-                sorted_accounts = sorted(AccountsListFrame.accounts, key=lambda account: account.title)
+                sorted_accounts = sorted(accounts, key=lambda account: account.title)
             case "Username":
-                sorted_accounts = sorted(AccountsListFrame.accounts, key=lambda account: account.username)
+                sorted_accounts = sorted(accounts, key=lambda account: account.username)
 
         self.display_accounts(self.list_canvas, sorted_accounts)
 
     def set_filter_options(self):
-        unique_details = set()
-        for account in self.accounts:
-            for detail in account.details:
-                unique_details.add(detail)
-        self.filter_options = list(unique_details)
+        try:
+            unique_details = set()
+            for account in accounts:
+                for detail in account.details:
+                    unique_details.add(detail)
+            self.filter_options = list(unique_details)
+        except:
+            pass
+        # unique_details = set()
+        # for account in accounts:
+        #     for detail in account.details:
+        #         unique_details.add(detail)
+        # self.filter_options = list(unique_details)
 
     def filter_command(self):
         detail = self.filter_var.get()
         if detail == "-":
-            self.display_accounts(self.list_canvas, AccountsListFrame.accounts)
+            self.display_accounts(self.list_canvas, accounts)
             return
         filtered_accounts = []
-        for account in AccountsListFrame.accounts:
+        for account in accounts:
             if detail in account.details:
                 filtered_accounts.append(account)
 

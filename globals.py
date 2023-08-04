@@ -1,9 +1,10 @@
+from account import Account
 # region General
 PROGRAM_NAME = "Password Manager"
 registered_users = {
     "h": "h"
 }
-# endregion
+accounts: [Account] = []# endregion
 
 # region Passwords
 SALT_DIRECTORY = "./salt/"

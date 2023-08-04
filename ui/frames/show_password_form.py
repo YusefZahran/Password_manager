@@ -13,7 +13,7 @@ class ShowAccountForm(CustomFrame):
     title_var: string
     username_var: string
     password_var: string
-    details_var: string
+    details_var: [string]
     title_var_entry: CustomEntry
     username_var_entry: CustomEntry
     password_var_entry: CustomEntry
@@ -53,6 +53,8 @@ class ShowAccountForm(CustomFrame):
 
         edit_button = tk.Button(self, text="Edit", command=self.edit_command)
         edit_button.place(x=self.get_x_center(), y=self.get_y_center())
+        exit_button = tk.Button(self, text="Exit", command=self.exit_command)
+        exit_button.place(x=self.get_x_center(), y=self.get_y_center()+50)
 
     def edit_command(self):
         # turn the entries states om
@@ -60,3 +62,6 @@ class ShowAccountForm(CustomFrame):
         self.title_var_entry.configure(state="normal")
         self.username_var_entry.configure(state="normal")
         self.password_var_entry.configure(state="normal")
+
+    def exit_command(self):
+        self.destroy_frame()
