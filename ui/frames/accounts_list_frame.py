@@ -116,9 +116,19 @@ class AccountsListFrame(AbstractFrame):
         self.inner_frame = tk.Frame(master)
         master.create_window(0, 0, window=self.inner_frame, anchor=tk.NW)
 
+        row = 0
+
         for account in accounts:
-            self.account_components.append(AccountComponent(self.inner_frame, account))
-            self.account_components[-1].pack()
+            account_component = AccountComponent(self.inner_frame, account)
+            account_component.grid(row=row, column=0)
+            btn = CustomFrame(self.inner_frame)
+            btn.configure(width=globals.ROOT_WIDGET_WIDTH - 50, height=75, padx=10, pady=20, background='')
+            btn.grid(row=row, column=0)
+            btn.bind("<Button-1>", self.test)
+            self.account_components.append(account_component)
+
+            row += 1
+            # self.account_components[-1].pack()
 
     def search_command(self):
         search_string = self.search_var.get().lower()
@@ -177,5 +187,6 @@ class AccountsListFrame(AbstractFrame):
         self.pack_forget()
         self.destroy_frame()
 
-
+    def test(self, event: tk.Event):
+        print("Test")
     # endregion

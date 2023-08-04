@@ -110,21 +110,30 @@ def file_manager_test():
 
 # region Main
 def main():
+    # root = RootWidget()
+    # root.clear_canvas()
+    #
+    # main_menu = MainMenuFrame(root)
+    # root.add_frame(main_menu)
+    # root.wait_window(main_menu)
+    # while(main_menu.is_logged_in):
+    #     root.clear_canvas()
+    #     account_list = AccountsListFrame(root)
+    #     root.add_frame(account_list)
+    #     root.wait_window(account_list)
+    #     add_account = AddAccountFrame(root)
+    #     root.add_frame(add_account)
+    #     root.wait_window(add_account)
+
     root = RootWidget()
     root.clear_canvas()
-
-    main_menu = MainMenuFrame(root)
-    root.add_frame(main_menu)
-    root.wait_window(main_menu)
-    while(main_menu.is_logged_in):
-        root.clear_canvas()
-        account_list = AccountsListFrame(root)
-        root.add_frame(account_list)
-        root.wait_window(account_list)
-        add_account = AddAccountFrame(root)
-        root.add_frame(add_account)
-        root.wait_window(add_account)
-
+    root.clear_canvas()
+    account_list = AccountsListFrame(root)
+    root.add_frame(account_list)
+    root.wait_window(account_list)
+    add_account = AddAccountFrame(root)
+    root.add_frame(add_account)
+    root.wait_window(add_account)
 
 
 
