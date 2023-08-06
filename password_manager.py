@@ -4,6 +4,7 @@ import string
 from account import Account
 from globals import user_accounts
 
+
 class PasswordManager:
     # currently assuming there's only one user, otherwise the list of passwords will be in a usermanager file
 
@@ -15,7 +16,7 @@ class PasswordManager:
         user_accounts.append(Account(title, username, password, details))
 
     @staticmethod
-    def add_account(title, username, password, details= None):
+    def add_account(title, username, password, details=None):
         user_accounts.append(Account(title, username, password, details))
 
     def print_passwords(self):
@@ -50,6 +51,7 @@ class PasswordManager:
 
     @staticmethod
     def is_password_secure(password: str) -> bool:
+
         if len(password) < 12:
             return False
 
@@ -59,3 +61,4 @@ class PasswordManager:
         has_special = any(char in string.punctuation for char in password)
 
         return has_uppercase and has_lowercase and has_digit and has_special
+
