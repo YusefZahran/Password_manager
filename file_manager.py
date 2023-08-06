@@ -24,7 +24,7 @@ class FileManager:
     def save_passwords():
         pm = password_manager.PasswordManager()
         # converts list of obj to list of dicts then to json
-        pw_json = json.dumps([pw.__dict__ for pw in password_manager.list_of_passwords])
+        pw_json = json.dumps([pw.__dict__ for pw in password_manager.user_accounts])
 
         with open("notpasswords.json", "w") as outfile:
             outfile.write(pw_json)

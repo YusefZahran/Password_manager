@@ -2,8 +2,8 @@ import random
 import string
 
 from account import Account
+from globals import user_accounts
 
-list_of_passwords: [Account] = []
 class PasswordManager:
     # currently assuming there's only one user, otherwise the list of passwords will be in a usermanager file
 
@@ -12,14 +12,14 @@ class PasswordManager:
         username = input("enter username")
         password = input("enter password")
         details = input("input details")
-        list_of_passwords.append(Account(title, username, password, details))
+        user_accounts.append(Account(title, username, password, details))
 
     @staticmethod
-    def add_password(title, username, password, details= None):
-        list_of_passwords.append(Account(title,username,password,details))
+    def add_account(title, username, password, details= None):
+        user_accounts.append(Account(title, username, password, details))
 
     def print_passwords(self):
-        for password in list_of_passwords:
+        for password in user_accounts:
             print(password.__str__())
 
     @staticmethod

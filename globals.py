@@ -1,5 +1,10 @@
+from account import Account
 # region General
 PROGRAM_NAME = "Password Manager"
+registered_users = {
+    "h": "h"
+}
+user_accounts: [Account] = []
 # endregion
 
 # region Passwords

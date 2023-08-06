@@ -8,19 +8,24 @@ from ui.frames.custom_frame import CustomFrame
 
 
 class AccountComponent(AbstractFrame):
+    """Custom Account Component. Contains all UI elements related to an account"""
     def __init__(self, master: tk.Misc, account: Account):
+        """Custom Account Component constructor
+        :param master: The master component
+        :param account: The account to be linked to this account component
+        """
         self.account = account
 
         super().__init__(master)
 
     def initialize_frame(self):
+        """Initializes the frame by drawing the UI components"""
         self.configure(padx=20, pady=10)
 
         inner_frame = CustomFrame(self)
         inner_frame.configure(width=globals.ROOT_WIDGET_WIDTH - 50, height=75, padx=10, pady=20,
                               highlightbackground=globals.FRAME_HIGHLIGHT_COLOR, highlightthickness=5)
         inner_frame.pack()
-        inner_frame.bind("<Button-1>", self.show_account_info)
 
         frame_y_center = 15
 
@@ -30,7 +35,3 @@ class AccountComponent(AbstractFrame):
 
     def show(self):
         self.pack()
-
-    def show_account_info(self, click_event: tk.Event):
-        # TODO: Show this account's info
-        print(f"{self.account.title}")
