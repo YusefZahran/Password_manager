@@ -45,7 +45,7 @@ class AddAccountFrame(CustomFrame):
 
         # Password info
         CustomLabel(self, text="Password: ", x=50, y=110)
-        CustomEntry(self, text_variable=self.__password_var, show='*', x=160, y=110)
+        CustomEntry(self, text_variable=self.__password_var, show='ඞ', x=160, y=110)
 
         # Details info
         CustomLabel(self, text="Details: ", x=50, y=140)

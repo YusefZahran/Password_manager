@@ -41,10 +41,10 @@ class RegisterUserFrame(CustomFrame):
                                  x=self.get_x_center(), y=self.get_y_center() - 100)
 
         # Username
-        CustomVerticalInputField(self, "Master Password", self.__registered_password, show='*',
+        CustomVerticalInputField(self, "Master Password", self.__registered_password, show='ඞ',
                                  x=self.get_x_center(), y=self.get_y_center() - 25)
 
-        CustomVerticalInputField(self, "Confirm Password", self.__registered_confirmed_password, show='*',
+        CustomVerticalInputField(self, "Confirm Password", self.__registered_confirmed_password, show='ඞ',
                                  x=self.get_x_center(), y=self.get_y_center() + 50)
 
         # Submit

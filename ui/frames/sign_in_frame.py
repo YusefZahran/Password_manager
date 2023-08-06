@@ -40,7 +40,7 @@ class SignInFrame(CustomFrame):
                                  x=self.get_x_center(), y=self.get_y_center() - 100)
 
         # Username
-        CustomVerticalInputField(self, "Master Password", self.master_password_var, show='*',
+        CustomVerticalInputField(self, "Master Password", self.master_password_var, show='ඞ',
                                  x=self.get_x_center(), y=self.get_y_center() - 25)
 
         # region Submit
