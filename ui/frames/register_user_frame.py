@@ -73,37 +73,49 @@ class RegisterUserFrame(CustomFrame):
     # endregion
     def __is_valid_username_and_password(self, username: str, password: str, confirmed_password: str) -> bool:
         """Checks if the given username and password and confirmed password are valid"""
-        if not self.__fields_are_not_empty(username, password, confirmed_password):
+        if self.__fields_are_empty(username, password, confirmed_password):
+            return False
+
+        if self.__username_is_taken(username):
             return False
 
         if not self.__password_is_equal_confirm_password(password, confirmed_password):
             return False
 
+        if not self.__password_is_secure(password):
+            return False
+
+        return True
+
+    def __username_is_taken(self, username: str) -> bool:
+        """Checks if the given username is not taken"""
+        if username in globals.registered_users:
+            if self.__error_label is not None:
+                self.__error_label.destroy()
+            self.__error_label = tk.Label(self, text="Username already exists", fg="red")
+            self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
+            return True
+        return False
+
+    def __password_is_secure(self, password: str) -> bool:
+        """Checks if the given password is secure enough"""
         if not PasswordManager.is_password_secure(password):
             if self.__error_label is not None:
                 self.__error_label.destroy()
             self.__error_label = tk.Label(self, text="Password is not safe enough", fg="red")
             self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             return False
-
-        if username in globals.registered_users:
-            if self.__error_label is not None:
-                self.__error_label.destroy()
-            self.__error_label = tk.Label(self, text="Username already exists", fg="red")
-            self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
-            return False
-
         return True
 
-    def __fields_are_not_empty(self, username: str, password: str, confirmed_password: str) -> bool:
+    def __fields_are_empty(self, username: str, password: str, confirmed_password: str) -> bool:
         """Checks if the given username and password and confirmed password are not empty"""
         if username == "" or password == "" or confirmed_password == "":
             if self.__error_label is not None:
                 self.__error_label.destroy()
             self.__error_label = tk.Label(self, text="Please fill in all the fields", fg="red")
             self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
-            return False
-        return True
+            return True
+        return False
 
     def __password_is_equal_confirm_password(self, password: str, confirmed_password: str) -> bool:
         """Checks if the given password is equal to the confirmed password"""
