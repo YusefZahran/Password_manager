@@ -17,16 +17,35 @@ class ShowAccountForm(CustomFrame):
     title_var_entry: CustomEntry
     username_var_entry: CustomEntry
     password_var_entry: CustomEntry
+    details_var_entry: CustomEntry
+    edit_button: tk.Button
+    exit_button: tk.Button
+    is_edit: bool
 
     # endregion
 
     def __init__(self, master: tk.Misc, account: Account):
+        # initializing account values
         self.title_var = account.title
         self.username_var = account.username
         self.password_var = account.get_password()
+        details_string = ""
+        for detail in account.details:
+            details_string = details_string + detail + ", "  # seperating the details
+        self.details_var = details_string
+
+        # initializing entries
         self.title_var_entry = CustomEntry
         self.password_var_entry = CustomEntry
         self.password_var_entry = CustomEntry
+        self.details_var_entry = CustomEntry
+
+        # initializing buttons
+        self.edit_button = tk.Button
+        self.exit_button = tk.Button
+
+        self.is_edit = False
+
         super().__init__(master)
 
     def initialize_frame(self):
@@ -51,17 +70,36 @@ class ShowAccountForm(CustomFrame):
         self.password_var_entry.insert(0, self.password_var)
         self.password_var_entry.configure(state="disabled")
 
-        edit_button = tk.Button(self, text="Edit", command=self.edit_command)
-        edit_button.place(x=self.get_x_center(), y=self.get_y_center())
-        exit_button = tk.Button(self, text="Exit", command=self.exit_command)
-        exit_button.place(x=self.get_x_center(), y=self.get_y_center()+50)
+        # Details info
+        CustomLabel(self, text="Details: ", x=50, y=140)
+        self.details_var_entry = CustomEntry(self, x=160, y=140)
+        self.details_var_entry.insert(0, self.details_var)
+        self.details_var_entry.configure(state="disabled")
+
+        # Edit button
+        self.edit_button = tk.Button(self, text="Edit", command=self.edit_command)
+        self.edit_button.place(x=self.get_x_center(), y=self.get_y_center())
+
+        # Exit button
+        self.exit_button = tk.Button(self, text="Exit", command=self.exit_command)
+        self.exit_button.place(x=self.get_x_center(), y=self.get_y_center() + 50)
 
     def edit_command(self):
         # turn the entries states om
-
-        self.title_var_entry.configure(state="normal")
-        self.username_var_entry.configure(state="normal")
-        self.password_var_entry.configure(state="normal")
+        if not self.is_edit:
+            self.title_var_entry.configure(state="normal")
+            self.username_var_entry.configure(state="normal")
+            self.password_var_entry.configure(state="normal")
+            self.details_var_entry.configure(state="normal")
+            self.edit_button.configure(text="Show")
+            self.is_edit = True
+        else:
+            self.title_var_entry.configure(state="disabled")
+            self.username_var_entry.configure(state="disabled")
+            self.password_var_entry.configure(state="disabled")
+            self.details_var_entry.configure(state="disabled")
+            self.edit_button.configure(text="Edit")
+            self.is_edit = False
 
     def exit_command(self):
         self.destroy_frame()
