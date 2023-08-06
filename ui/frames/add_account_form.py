@@ -44,5 +44,6 @@ class AddAccountFrame(CustomFrame):
         add_button.place(x=self.get_x_center(), y=self.get_y_center())
 
     def add_password(self):
-        PasswordManager.add_password(self.title_var, self.username_var, self.password_var, self.details_var)
+        PasswordManager.add_password(self.title_var.get(), self.username_var.get(),
+                                     self.password_var.get(), self.details_var.get())
         self.destroy_frame()
