@@ -110,7 +110,7 @@ class RegisterUserFrame(CustomFrame):
         if password != confirmed_password:
             if self.__error_label is not None:
                 self.__error_label.destroy()
-            self.__error_label = tk.Label(self, text="confirm password does not match", fg="red")
+            self.__error_label = tk.Label(self, text="Password does not match confirm password", fg="red")
             self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
             return False
         return True
