@@ -25,5 +25,5 @@ class Account:
     def edit_password(self,title, username,password,details=[ ]):
         self.title = title
         self.username = username
-        self.__password = self.set_password(password)
+        self.set_password(password)
         self.details = details

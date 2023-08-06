@@ -15,12 +15,15 @@ class AddAccountFrame(CustomFrame):
     title_var_entry: tk.StringVar
     username_var_entry: tk.StringVar
     password_var_entry: tk.StringVar
+    details_var_entry: CustomEntry
+
 
     def __init__(self, master: tk.Misc):
         self.title_var = tk.StringVar()
         self.username_var = tk.StringVar()
         self.password_var = tk.StringVar()
         self.details_var = tk.StringVar()
+        self.details_var_entry = CustomEntry
         super().__init__(master)
 
     def initialize_frame(self):
@@ -40,9 +43,16 @@ class AddAccountFrame(CustomFrame):
         CustomLabel(self, text="Password: ", x=50, y=110)
         CustomEntry(self, text_variable=self.password_var, x=160, y=110)
 
+        # Details info
+        CustomLabel(self, text="Detials: ", x=50, y=140)
+        self.details_var_entry = CustomEntry(self, x=160, y=140)
+
         add_button = tk.Button(self, text="Add", command=self.add_password)
         add_button.place(x=self.get_x_center(), y=self.get_y_center())
 
     def add_password(self):
+        self.details_var = self.details_var_entry.get().strip().split(", ")
+        for i in range(len(self.details_var)):
+            print(self.details_var[i])
         PasswordManager.add_password(self.title_var, self.username_var, self.password_var, self.details_var)
         self.destroy_frame()
