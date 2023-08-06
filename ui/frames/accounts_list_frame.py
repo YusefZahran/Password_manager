@@ -8,19 +8,7 @@ from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
 from ui.components.custom_search_bar import CustomSearchBar
 from ui.frames.abstract_frame import AbstractFrame
-from ui.frames.add_password_form import AddAccountFrame
 from ui.frames.custom_frame import CustomFrame
-
-# TODO: Make this not explode with too many tags
-test_accounts_1 = [Account("Xacebook",
-                           "codgamer69@yahoo.com",
-                           "PASSWORD1",
-                           ["fb", "meta", "codgamer"]),
-                   Account("Twitter",
-                           "mcgamer69@yahoo.com",
-                           "PASSWORD2",
-                           ["twitter", "x", "codgamer", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-                            "n", "o"])]
 
 
 class AccountsListFrame(AbstractFrame):
@@ -33,7 +21,6 @@ class AccountsListFrame(AbstractFrame):
     filter_options = ["TEST TAG 1", "TEST TAG 2"]
 
     account_components: [AccountComponent] = []
-
 
     # endregion
 
@@ -59,7 +46,6 @@ class AccountsListFrame(AbstractFrame):
     # region UI
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed"""
-        accounts = test_accounts_1
         # Top bar elements
         top_bar = CustomFrame(self)
         top_bar.configure(width=globals.ROOT_WIDGET_WIDTH, height=50)
@@ -173,13 +159,8 @@ class AccountsListFrame(AbstractFrame):
                 for detail in account.details:
                     unique_details.add(detail)
             self.filter_options = list(unique_details)
-        except:
-            pass
-        # unique_details = set()
-        # for account in accounts:
-        #     for detail in account.details:
-        #         unique_details.add(detail)
-        # self.filter_options = list(unique_details)
+        except Exception as e:
+            print("An error occurred:", e)
 
     def filter_command(self):
         detail = self.filter_var.get()

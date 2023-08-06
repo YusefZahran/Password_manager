@@ -3,6 +3,8 @@ from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
 
 from globals import registered_users
+
+
 class SignInFrame(CustomFrame):
     # region Properties
     username_var: tk.StringVar
@@ -58,7 +60,6 @@ class SignInFrame(CustomFrame):
     def submit_command(self):
         print(f"Submitted: {self.username_var.get()}: {self.master_password_var.get()}")
         str_error = "Please fill in all the fields"
-        lbl1 = "Login Successful! Welcome to the system!"
         lbl2 = "Username or password may be wrong "
 
         if self.username_var.get() == "" or self.master_password_var.get() == "":
@@ -72,14 +73,8 @@ class SignInFrame(CustomFrame):
         username = self.username_var.get()
         password = self.master_password_var.get()
         self.show()
-        #from Registeration_Login import login
-        if self.login(username, password):
-            # Place code here that executes after successful login
-            if self.error_label is not None:
-                self.error_label.destroy()
-            self.error_label = tk.Label(self, text=lbl1, fg="green")
-            self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
 
+        if self.login(username, password):
             return True
 
         else:
@@ -91,9 +86,10 @@ class SignInFrame(CustomFrame):
 
         # self.destroy_frame()
         return False
+
     # endregion
 
-    def login(self,username, password):
+    def login(self, username, password):
         # Get user input for login credentials
 
         # Check if the entered username and password match the dictionary entries
@@ -106,6 +102,3 @@ class SignInFrame(CustomFrame):
             print("Invalid username or password. Please try again.")
             self.is_logged_in = False
             return False
-
-
-

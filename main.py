@@ -1,7 +1,7 @@
 from ui.frames.sign_in_frame import SignInFrame
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.show_password_frame import ShowAccountFrame
-from ui.frames.add_password_form import AddAccountFrame
+from ui.frames.add_account_form import AddAccountFrame
 from ui.root_widget import RootWidget
 
 
