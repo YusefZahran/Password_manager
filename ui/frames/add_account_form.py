@@ -54,5 +54,6 @@ class AddAccountFrame(CustomFrame):
         self.details_var = self.details_var_entry.get().strip().split(", ")
         for i in range(len(self.details_var)):
             print(self.details_var[i])
-        PasswordManager.add_password(self.title_var, self.username_var, self.password_var, self.details_var)
+        PasswordManager.add_password(self.title_var.get(), self.username_var.get(),
+                                     self.password_var.get(), self.details_var.get())
         self.destroy_frame()

@@ -4,7 +4,8 @@ PROGRAM_NAME = "Password Manager"
 registered_users = {
     "h": "h"
 }
-accounts: [Account] = []# endregion
+accounts: [Account] = []
+# endregion
 
 # region Passwords
 SALT_DIRECTORY = "./salt/"

@@ -7,7 +7,7 @@ from ui.components.custom_label import CustomLabel
 from ui.components.custom_entry import CustomEntry
 
 
-class ShowAccountForm(CustomFrame):
+class ShowAccountFrame(CustomFrame):
     """Show Password Form Frame"""
     # region properties
     title_var: string
