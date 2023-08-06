@@ -4,7 +4,7 @@ PROGRAM_NAME = "Password Manager"
 registered_users = {
     "h": "h"
 }
-accounts: [Account] = []
+user_accounts: [Account] = []
 # endregion
 
 # region Passwords

@@ -23,16 +23,14 @@ class SignInFrame(CustomFrame):
 
     # endregion
     def switch_to_register(self):
+        # TODO: Fix this issue
         # Clear the current frame
 
         # Import and create the RegisterFrame to switch to it
         from ui.frames.register_user_frame import RegisterUserFrame
         self.pack_forget()
         RegisterUserFrame(self.master).show()
-        # RegisterUserFrame(self.master).pack()
         self.destroy_frame()
-
-    #    self.destroy_frame()
 
     # region UI
     def initialize_frame(self):
@@ -58,7 +56,6 @@ class SignInFrame(CustomFrame):
 
     # region Commands
     def submit_command(self):
-        print(f"Submitted: {self.username_var.get()}: {self.master_password_var.get()}")
         str_error = "Please fill in all the fields"
         lbl2 = "Username or password may be wrong "
 
@@ -94,11 +91,9 @@ class SignInFrame(CustomFrame):
 
         # Check if the entered username and password match the dictionary entries
         if username in registered_users and registered_users[username] == password:
-            print("Login Successful!")
             self.is_logged_in = True
             self.destroy_frame()
             return True
         else:
-            print("Invalid username or password. Please try again.")
             self.is_logged_in = False
             return False

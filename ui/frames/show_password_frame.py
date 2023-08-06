@@ -31,7 +31,7 @@ class ShowAccountFrame(CustomFrame):
         self.password_var = account.get_password()
         details_string = ""
         for detail in account.details:
-            details_string = details_string + detail + ", "  # seperating the details
+            details_string = details_string + detail + ", "  # separating the details
         self.details_var = details_string
 
         # initializing entries
