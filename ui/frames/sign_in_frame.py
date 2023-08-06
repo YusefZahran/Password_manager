@@ -3,7 +3,7 @@ from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
 
 from globals import registered_users
-class MainMenuFrame(CustomFrame):
+class SignInFrame(CustomFrame):
     # region Properties
     username_var: tk.StringVar
     master_password_var: tk.StringVar
@@ -24,7 +24,7 @@ class MainMenuFrame(CustomFrame):
         # Clear the current frame
 
         # Import and create the RegisterFrame to switch to it
-        from ui.frames.Register_User_frame import RegisterUserFrame
+        from ui.frames.register_user_frame import RegisterUserFrame
         self.pack_forget()
         RegisterUserFrame(self.master).show()
         # RegisterUserFrame(self.master).pack()
