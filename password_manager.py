@@ -6,9 +6,10 @@ from globals import user_accounts
 
 
 class PasswordManager:
-    # currently assuming there's only one user, otherwise the list of passwords will be in a usermanager file
+    # currently assuming there's only one user, otherwise the list of passwords will be in usermanager file
 
-    def add_password(self):
+    @staticmethod
+    def add_password():
         title = input("enter title name")
         username = input("enter username")
         password = input("enter password")
@@ -18,10 +19,6 @@ class PasswordManager:
     @staticmethod
     def add_account(title, username, password, details=None):
         user_accounts.append(Account(title, username, password, details))
-
-    def print_passwords(self):
-        for password in user_accounts:
-            print(password.__str__())
 
     @staticmethod
     def generate_password(length: int = 12) -> str:
@@ -52,7 +49,7 @@ class PasswordManager:
     @staticmethod
     def is_password_secure(password: str) -> bool:
 
-        if len(password) < 12:
+        if len(password) < 8:
             return False
 
         has_uppercase = any(char in string.ascii_uppercase for char in password)
@@ -61,4 +58,3 @@ class PasswordManager:
         has_special = any(char in string.punctuation for char in password)
 
         return has_uppercase and has_lowercase and has_digit and has_special
-
