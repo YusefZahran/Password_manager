@@ -6,11 +6,14 @@ registered_users = {
     "h": "h"
 }
 user_accounts: list[Account] = []
+CURRENT_USER_DIR = ""
 
 # Passwords
 SALT_DIRECTORY = "./salt/"
 """Salts directory for specifying where to store user salts"""
-
+USERS_DIRECTORY = "./users/"
+ACCOUNTS_DIRECTORY = "./accounts/"
+FILES_ENCRYPTOR = "ENCRYPTOR"
 # UI
 # General
 PROGRAM_BACKGROUND_COLOR = "#2E3440"

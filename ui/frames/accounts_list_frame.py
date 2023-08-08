@@ -1,7 +1,10 @@
+import json
+import os
 import tkinter as tk
 
 import globals
 from account import Account
+from cryptographer import Cryptographer
 from ui.components.account_component import AccountComponent
 from ui.components.custom_button import CustomButton
 from ui.components.custom_option_input import CustomOptionInput
@@ -33,8 +36,25 @@ class AccountsListFrame(AbstractFrame):
         self.selected_account = None
         self.__account_components: [AccountComponent] = []
 
+        self.load_accounts()
+
         # Parent constructor
         super().__init__(master)
+
+    def load_accounts(self):
+        pass
+        # print(globals.CURRENT_USER_DIR)
+        # for filename in os.listdir(globals.CURRENT_USER_DIR):
+        #     print(filename)
+        #     f = os.path.join(globals.USERS_DIRECTORY, filename)
+        #     if os.path.isfile(f):
+        #         with open(f, "r") as infile:
+        #             decrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
+        #             f = f.replace(".json", '')
+        #             f = f.replace("./users/", '')
+        #             f = f.replace("'", '')
+        #             fields = f.split('\n')
+        #             print(fields)
 
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed."""
