@@ -1,3 +1,4 @@
+from ui.frames.register_user_frame import RegisterUserFrame
 from ui.frames.sign_in_frame import SignInFrame
 from ui.frames.accounts_list_frame import AccountsListFrame
 from ui.frames.show_password_frame import ShowAccountFrame
@@ -12,11 +13,20 @@ def main():
     """
     try:
         root = RootWidget()
-        root.clear_canvas()
 
-        sign_in = SignInFrame(root)
-        root.add_frame(sign_in)
-        root.wait_window(sign_in)
+        while True:
+            root.clear_canvas()
+            sign_in = SignInFrame(root)
+            root.add_frame(sign_in)
+            root.wait_window(sign_in)
+
+            if sign_in.is_register:
+                register = RegisterUserFrame(root)
+                root.add_frame(register)
+                root.wait_window(register)
+
+            if sign_in.is_logged_in:
+                break
 
         while sign_in.is_logged_in:
             root.clear_canvas()

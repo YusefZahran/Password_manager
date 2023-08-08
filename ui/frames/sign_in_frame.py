@@ -19,17 +19,13 @@ class SignInFrame(CustomFrame):
         self.master_password_var = tk.StringVar()
         self.error_label = None
         self.is_logged_in = False
+        self.is_register = False
         super().__init__(master)
 
     # endregion
     def switch_to_register(self):
-        # TODO: Fix this issue
-        # Clear the current frame
-
-        # Import and create the RegisterFrame to switch to it
-        from ui.frames.register_user_frame import RegisterUserFrame
+        self.is_register = True
         self.pack_forget()
-        RegisterUserFrame(self.master).show()
         self.destroy_frame()
 
     # region UI

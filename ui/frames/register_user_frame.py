@@ -63,12 +63,8 @@ class RegisterUserFrame(CustomFrame):
         if not self.__is_valid_username_and_password(username, password, confirmed_password):
             return
 
-        # TODO: Fix this issue
         self.__register_user(username, password)
-        self.pack_forget()
-        SignInFrame(self.master).show()
         self.destroy_frame()
-        self.pack_forget()
 
     # endregion
     def __is_valid_username_and_password(self, username: str, password: str, confirmed_password: str) -> bool:
