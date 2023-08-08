@@ -35,26 +35,29 @@ class AccountsListFrame(AbstractFrame):
         self.is_edit = False
         self.selected_account = None
         self.__account_components: [AccountComponent] = []
+        self.__accounts: [Account] = []
 
-        self.load_accounts()
+        self.__load_accounts()
 
         # Parent constructor
         super().__init__(master)
 
-    def load_accounts(self):
-        pass
-        # print(globals.CURRENT_USER_DIR)
-        # for filename in os.listdir(globals.CURRENT_USER_DIR):
-        #     print(filename)
-        #     f = os.path.join(globals.USERS_DIRECTORY, filename)
-        #     if os.path.isfile(f):
-        #         with open(f, "r") as infile:
-        #             decrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
-        #             f = f.replace(".json", '')
-        #             f = f.replace("./users/", '')
-        #             f = f.replace("'", '')
-        #             fields = f.split('\n')
-        #             print(fields)
+    def __load_accounts(self):
+        for filename in os.listdir(globals.CURRENT_USER_ACCOUNTS_DIR):
+            path = os.path.join(globals.CURRENT_USER_ACCOUNTS_DIR, filename)
+
+            if os.path.isfile(path):
+                with open(path, "r") as infile:
+                    data = json.load(infile)
+                    fields = data.split('\n')
+
+                    for i, field in enumerate(fields):
+                        field = bytes(field, 'utf-8')
+                        fields[i] = globals.cryptographer.decrypt_entry(field)
+
+                    account = Account(fields[0], fields[1], fields[2], fields[3].split(','))
+                    if account not in self.__accounts:
+                        self.__accounts.append(account)
 
     def initialize_frame(self):
         """Initializes the frame by drawing the components needed."""
@@ -94,7 +97,7 @@ class AccountsListFrame(AbstractFrame):
         self.list_canvas.config(yscrollcommand=vbar.set)
 
         # Create a frame inside the canvas to hold the AccountComponent widgets
-        self.__display_accounts_command(self.list_canvas, globals.user_accounts)
+        self.__display_accounts(self.list_canvas, self.__accounts)
 
         # Update the scroll region based on the inner frame's size
         self.list_canvas.update_idletasks()
@@ -110,7 +113,7 @@ class AccountsListFrame(AbstractFrame):
         """Shows the frame."""
         super().show()
 
-    def __display_accounts_command(self, master: tk.Canvas, accounts: [Account]):
+    def __display_accounts(self, master: tk.Canvas, accounts: [Account]):
         """
         Displays the accounts on the frame.
 
@@ -138,17 +141,17 @@ class AccountsListFrame(AbstractFrame):
         """Searches the existing accounts for a match."""
         search_string = self.__search_var.get().lower()
         if search_string == "":
-            self.__display_accounts_command(self.list_canvas, globals.user_accounts)
+            self.__display_accounts(self.list_canvas, self.__accounts)
             return
 
         filtered_accounts = []
-        for account in globals.user_accounts:
+        for account in self.__accounts:
             if search_string in account.title.lower() \
                     or self.__matches_pattern(search_string, account.username.lower()) \
                     or any(self.__matches_pattern(search_string, detail.lower()) for detail in account.details):
                 filtered_accounts.append(account)
 
-        self.__display_accounts_command(self.list_canvas, filtered_accounts)
+        self.__display_accounts(self.list_canvas, filtered_accounts)
 
     @staticmethod
     def __matches_pattern(query, text):
@@ -159,22 +162,22 @@ class AccountsListFrame(AbstractFrame):
         """Sorts the accounts displayed based on the chosen sort type."""
         sort_by = self.sort_var.get()
         if sort_by == "-":
-            self.__display_accounts_command(self.list_canvas, globals.user_accounts)
+            self.__display_accounts(self.list_canvas, self.__accounts)
             return
 
         sorted_accounts = []
         if sort_by == "Title":
-            sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.title)
+            sorted_accounts = sorted(self.__accounts, key=lambda account: account.title)
         elif sort_by == "Username":
-            sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.username)
+            sorted_accounts = sorted(self.__accounts, key=lambda account: account.username)
 
-        self.__display_accounts_command(self.list_canvas, sorted_accounts)
+        self.__display_accounts(self.list_canvas, sorted_accounts)
 
     def __set_filter_options(self):
         """Sets the filter option based on the chosen filter type."""
         try:
             unique_details = set()
-            for account in globals.user_accounts:
+            for account in self.__accounts:
                 for detail in account.details:
                     unique_details.add(detail)
             self.__filter_options = list(unique_details)
@@ -185,14 +188,14 @@ class AccountsListFrame(AbstractFrame):
         """Filters the accounts displayed based on the chosen filter type."""
         detail = self.filter_var.get()
         if detail == "-":
-            self.__display_accounts_command(self.list_canvas, globals.user_accounts)
+            self.__display_accounts(self.list_canvas, self.__accounts)
             return
         filtered_accounts = []
-        for account in globals.user_accounts:
+        for account in self.__accounts:
             if detail in account.details:
                 filtered_accounts.append(account)
 
-        self.__display_accounts_command(self.list_canvas, filtered_accounts)
+        self.__display_accounts(self.list_canvas, filtered_accounts)
 
     def __add_account_frame_command(self):
         """Switches to the add account frame by destroying this frame."""

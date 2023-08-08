@@ -1,3 +1,4 @@
+import hashlib
 import json
 import tkinter as tk
 
@@ -57,15 +58,16 @@ class AddAccountFrame(CustomFrame):
                                     self.__password_var.get(), self.__details_var)
         self.destroy_frame()
 
-        encrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
-        file_name = encrypter.encrypt_entry(self.__title_var.get())
-        data = ""
-        data += encrypter.encrypt_entry(self.__title_var.get()).decode('utf-8') + "\n"
-        data += encrypter.encrypt_entry(self.__username_var.get()).decode('utf-8') + "\n"
-        data += encrypter.encrypt_entry(self.__password_var.get()).decode('utf-8') + "\n"
-        data += encrypter.encrypt_entry(','.join(self.__details_var)).decode('utf-8')
+        data = globals.cryptographer.encrypt_entry(self.__title_var.get()).decode('utf-8') + "\n"
+        data += globals.cryptographer.encrypt_entry(self.__username_var.get()).decode('utf-8') + "\n"
+        data += globals.cryptographer.encrypt_entry(self.__password_var.get()).decode('utf-8') + "\n"
+        data += globals.cryptographer.encrypt_entry(','.join(self.__details_var)).decode('utf-8')
 
-        file_path = f"{globals.CURRENT_USER_DIR}/{file_name}.json"
+        file_name = hashlib.sha256()
+        file_name.update(bytes(self.__title_var.get(), 'utf-8'))
+        file_name = file_name.hexdigest()
+
+        file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{file_name}.json"
 
         with open(file_path, "w") as f:
             json.dump(data, f)

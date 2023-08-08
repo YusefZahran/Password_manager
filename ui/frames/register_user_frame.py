@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import tkinter as tk
@@ -128,20 +129,20 @@ class RegisterUserFrame(CustomFrame):
     @staticmethod
     def __register_user(username, password):
         """Registers a new user by adding a new user to the registered users dictionary"""
-        # Get user input for username and password
-        new_username = username
-        new_password = password
 
         # Save the username and password in the dictionary
-        globals.registered_users[new_username] = new_password
+        globals.registered_users[username] = password
 
-        encrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
-        username_token = encrypter.encrypt_entry(new_username)
-        password_token = encrypter.encrypt_entry(new_password)
+        # TODO: Create class for this
+        encrypter = Cryptographer(username, password)
+        password_token = encrypter.encrypt_entry(password)
 
-        file_path = f"{globals.USERS_DIRECTORY}/{username_token}.json"
+        file_name = hashlib.sha256()
+        file_name.update(bytes(username, 'utf-8'))
+        file_name = file_name.hexdigest()
+        file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
 
         with open(file_path, "w") as f:
             json.dump(password_token.decode('utf-8'), f)
 
-        os.makedirs(f"{globals.ACCOUNTS_DIRECTORY}/{username_token}/")
+        os.makedirs(f"{globals.ACCOUNTS_DIRECTORY}/{file_name}/")

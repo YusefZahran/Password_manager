@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import tkinter as tk
@@ -6,8 +7,6 @@ from cryptographer import Cryptographer
 import globals
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
-
-from globals import registered_users
 
 
 class SignInFrame(CustomFrame):
@@ -25,7 +24,6 @@ class SignInFrame(CustomFrame):
         self.error_label = None
         self.is_logged_in = False
         self.is_register = False
-        self.load_users()
         super().__init__(master)
 
     # endregion
@@ -33,26 +31,6 @@ class SignInFrame(CustomFrame):
         self.is_register = True
         self.pack_forget()
         self.destroy_frame()
-
-    @staticmethod
-    def load_users():
-        for filename in os.listdir(globals.USERS_DIRECTORY):
-            f = os.path.join(globals.USERS_DIRECTORY, filename)
-            if os.path.isfile(f):
-                with open(f, "r") as infile:
-                    decrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
-                    f = f.replace(".json", '')
-                    f = f.replace("./users/", '')
-                    f = f.replace("'", '')
-                    f = f.replace('b', '', 1)
-                    username_token = bytes(f, 'utf-8')
-                    username = decrypter.decrypt_entry(username_token)
-
-                    data = json.load(infile)
-                    password_token = bytes(data, 'utf-8')
-                    password = decrypter.decrypt_entry(password_token)
-
-                    globals.registered_users[username] = password
 
     # region UI
     def initialize_frame(self):
@@ -93,11 +71,6 @@ class SignInFrame(CustomFrame):
         self.show()
 
         if self.login(username, password):
-            encrypter = Cryptographer(globals.FILES_ENCRYPTOR, globals.FILES_ENCRYPTOR)
-            username_token = encrypter.encrypt_entry(username)
-            globals.CURRENT_USER_DIR = f"{globals.ACCOUNTS_DIRECTORY}/{username_token}/"
-            if not os.path.exists(globals.CURRENT_USER_DIR):
-                os.makedirs(globals.CURRENT_USER_DIR)
             return True
         else:
             # Place code here that executes when login fails
@@ -112,10 +85,22 @@ class SignInFrame(CustomFrame):
     # endregion
 
     def login(self, username, password):
-        # Get user input for login credentials
+        is_logged_in = False
+        # TODO: Create class for this
+        file_name = hashlib.sha256()
+        file_name.update(bytes(username, 'utf-8'))
+        file_name = file_name.hexdigest()
+        file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
+        if os.path.exists(file_path):
+            globals.cryptographer = Cryptographer(username, password)
+            with open(file_path, "r") as infile:
+                data = json.load(infile)
+                decrypted_password = globals.cryptographer.decrypt_entry(data)
+                if password == decrypted_password:
+                    is_logged_in = True
 
-        # Check if the entered username and password match the dictionary entries
-        if username in registered_users and registered_users[username] == password:
+        if is_logged_in:
+            globals.CURRENT_USER_ACCOUNTS_DIR = f"{globals.ACCOUNTS_DIRECTORY}/{file_name}/"
             self.is_logged_in = True
             self.destroy_frame()
             return True
