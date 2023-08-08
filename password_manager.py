@@ -6,14 +6,14 @@ from globals import user_accounts
 
 
 class PasswordManager:
-    # currently assuming there's only one user, otherwise the list of passwords will be in usermanager file
+    # Currently assuming there's only one user; otherwise, the list of passwords will be in the user manager file.
 
     @staticmethod
     def add_password():
-        title = input("enter title name")
-        username = input("enter username")
-        password = input("enter password")
-        details = input("input details")
+        title = input("Enter title name: ")
+        username = input("Enter username: ")
+        password = input("Enter password: ")
+        details = input("Input details: ")
         user_accounts.append(Account(title, username, password, details))
 
     @staticmethod
@@ -48,7 +48,6 @@ class PasswordManager:
 
     @staticmethod
     def is_password_secure(password: str) -> bool:
-
         if len(password) < 8:
             return False
 

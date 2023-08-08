@@ -64,7 +64,6 @@ class SignInFrame(CustomFrame):
                 self.error_label.destroy()
             self.error_label = tk.Label(self, text=str_error, fg="red")
             self.error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
-            print("Please fill in all the fields")
             return
 
         username = self.username_var.get()

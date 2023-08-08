@@ -11,40 +11,33 @@ from ui.frames.custom_frame import CustomFrame
 
 
 class AccountsListFrame(AbstractFrame):
-    """Accounts list frame"""
+    """
+    Accounts list frame.
+    """
 
-    # region Properties
-    __search_var: tk.StringVar
-    """The search variable linked to the search bar"""
-    __sort_options = ["Title", "Username"]
-    """The options in the sort menu"""
-    __filter_options = []
-    """The options in the filter menu"""
-    __account_components: [AccountComponent] = []
-    """The accounts components list to display"""
-    # endregion
-
-    # region Constructor
     def __init__(self, master: tk.Misc):
-        """Sign in form constructor
-        :param master: The master (parent) component for the entry to be relative to
+        """
+        Accounts list frame constructor.
+
+        :param master: The master (parent) component for the entry to be relative to.
         """
         # Initialize UI variables
         self.filter_var = tk.StringVar()
         self.sort_var = tk.StringVar()
         self.__search_var = tk.StringVar()
+        self.__sort_options = ["Title", "Username"]
+        self.__filter_options = []
         self.list_canvas = None
         self.inner_frame = None
         self.is_edit = False
         self.selected_account = None
+        self.__account_components: [AccountComponent] = []
 
         # Parent constructor
         super().__init__(master)
-    # endregion
 
-    # region UI
     def initialize_frame(self):
-        """Initializes the frame by drawing the components needed"""
+        """Initializes the frame by drawing the components needed."""
         # Top bar elements
         top_bar = CustomFrame(self)
         top_bar.configure(width=globals.ROOT_WIDGET_WIDTH, height=50)
@@ -94,15 +87,15 @@ class AccountsListFrame(AbstractFrame):
                                   lambda event: self.list_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units"))
 
     def show(self):
-        """Shows the frame"""
+        """Shows the frame."""
         super().show()
-    # endregion
 
-    # region Commands
     def __display_accounts_command(self, master: tk.Canvas, accounts: [Account]):
-        """Displays the accounts on the frame
-        :param master: The master canvas to display the accounts on
-        :param accounts: The accounts to display
+        """
+        Displays the accounts on the frame.
+
+        :param master: The master canvas to display the accounts on.
+        :param accounts: The accounts to display.
         """
         master.delete(tk.ALL)
         self.inner_frame = tk.Frame(master)
@@ -122,7 +115,7 @@ class AccountsListFrame(AbstractFrame):
             row += 1
 
     def __search_command(self):
-        """Searches the existing accounts for a match"""
+        """Searches the existing accounts for a match."""
         search_string = self.__search_var.get().lower()
         if search_string == "":
             self.__display_accounts_command(self.list_canvas, globals.user_accounts)
@@ -139,27 +132,26 @@ class AccountsListFrame(AbstractFrame):
 
     @staticmethod
     def __matches_pattern(query, text):
-        """Matches the email pattern"""
+        """Matches the email pattern."""
         return text.startswith(query) or any(part.startswith(query) for part in text.split('@'))
 
     def __sort_command(self):
-        """Sorts the accounts displayed based on the chosen sort type"""
+        """Sorts the accounts displayed based on the chosen sort type."""
         sort_by = self.sort_var.get()
         if sort_by == "-":
             self.__display_accounts_command(self.list_canvas, globals.user_accounts)
             return
 
         sorted_accounts = []
-        match sort_by:
-            case "Title":
-                sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.title)
-            case "Username":
-                sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.username)
+        if sort_by == "Title":
+            sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.title)
+        elif sort_by == "Username":
+            sorted_accounts = sorted(globals.user_accounts, key=lambda account: account.username)
 
         self.__display_accounts_command(self.list_canvas, sorted_accounts)
 
     def __set_filter_options(self):
-        """Sets the filter option based on the chosen filter type"""
+        """Sets the filter option based on the chosen filter type."""
         try:
             unique_details = set()
             for account in globals.user_accounts:
@@ -170,7 +162,7 @@ class AccountsListFrame(AbstractFrame):
             print("An error occurred:", e)
 
     def __filter_command(self):
-        """Filters the accounts displayed based on the chosen filter type"""
+        """Filters the accounts displayed based on the chosen filter type."""
         detail = self.filter_var.get()
         if detail == "-":
             self.__display_accounts_command(self.list_canvas, globals.user_accounts)
@@ -183,15 +175,14 @@ class AccountsListFrame(AbstractFrame):
         self.__display_accounts_command(self.list_canvas, filtered_accounts)
 
     def __add_account_frame_command(self):
-        """Switches to the add account frame by destroying this frame"""
+        """Switches to the add account frame by destroying this frame."""
         self.is_edit = False
         self.pack_forget()
         self.destroy_frame()
 
     def __edit_account_command(self, account: Account):
-        """Switches to the edit account frame by destroying this frame"""
+        """Switches to the edit account frame by destroying this frame."""
         self.is_edit = True
         self.selected_account = account
         self.pack_forget()
         self.destroy_frame()
-    # endregion

@@ -1,6 +1,4 @@
 import tkinter as tk
-import string
-
 from account import Account
 from ui.frames.custom_frame import CustomFrame
 from ui.components.custom_label import CustomLabel
@@ -9,46 +7,36 @@ from ui.components.custom_entry import CustomEntry
 
 class ShowAccountFrame(CustomFrame):
     """Show Password Form Frame"""
-    # region properties
-    title_var: string
-    username_var: string
-    password_var: string
-    details_var: [string]
-    title_var_entry: CustomEntry
-    username_var_entry: CustomEntry
-    password_var_entry: CustomEntry
-    details_var_entry: CustomEntry
-    edit_button: tk.Button
-    exit_button: tk.Button
-    is_edit: bool
-
-    # endregion
 
     def __init__(self, master: tk.Misc, account: Account):
+        """
+        Show Account Frame constructor.
+
+        :param master: The master component.
+        :param account: The Account object to display.
+        """
         # initializing account values
         self.title_var = account.title
         self.username_var = account.username
         self.password_var = account.get_password()
-        details_string = ""
-        for detail in account.details:
-            details_string = details_string + detail + ", "  # separating the details
-        self.details_var = details_string
+        self.details_var = ", ".join(account.details)
 
         # initializing entries
-        self.title_var_entry = CustomEntry
-        self.password_var_entry = CustomEntry
-        self.password_var_entry = CustomEntry
-        self.details_var_entry = CustomEntry
+        self.title_var_entry = None
+        self.username_var_entry = None
+        self.password_var_entry = None
+        self.details_var_entry = None
 
         # initializing buttons
-        self.edit_button = tk.Button
-        self.exit_button = tk.Button
+        self.edit_button = None
+        self.exit_button = None
 
         self.is_edit = False
 
         super().__init__(master)
 
     def initialize_frame(self):
+        """Initializes the frame by drawing UI components."""
         # Frame title
         CustomLabel(self, text="Account Information: ", x=300, y=20)
 
@@ -85,7 +73,7 @@ class ShowAccountFrame(CustomFrame):
         self.exit_button.place(x=self.get_x_center(), y=self.get_y_center() + 50)
 
     def edit_command(self):
-        # turn the entries states om
+        """Toggles the edit mode for the entries."""
         if not self.is_edit:
             self.title_var_entry.configure(state="normal")
             self.username_var_entry.configure(state="normal")
@@ -102,4 +90,5 @@ class ShowAccountFrame(CustomFrame):
             self.is_edit = False
 
     def exit_command(self):
+        """Destroys the frame."""
         self.destroy_frame()
