@@ -1,3 +1,6 @@
+import os
+
+import globals
 from ui.frames.register_user_frame import RegisterUserFrame
 from ui.frames.sign_in_frame import SignInFrame
 from ui.frames.accounts_list_frame import AccountsListFrame
@@ -6,11 +9,18 @@ from ui.frames.add_account_frame import AddAccountFrame
 from ui.root_widget import RootWidget
 
 
-# region Main
-def main():
-    """
-    Main entry point of the password manager application.
-    """
+def initialize():
+    if not os.path.exists(globals.SALT_DIRECTORY):
+        os.makedirs(globals.SALT_DIRECTORY)
+
+    if not os.path.exists(globals.USERS_DIRECTORY):
+        os.makedirs(globals.USERS_DIRECTORY)
+
+    if not os.path.exists(globals.ACCOUNTS_DIRECTORY):
+        os.makedirs(globals.ACCOUNTS_DIRECTORY)
+
+
+def launch():
     try:
         root = RootWidget()
 
@@ -46,6 +56,15 @@ def main():
         root.show()
     except RuntimeError:
         pass
+
+
+# region Main
+def main():
+    """
+    Main entry point of the password manager application.
+    """
+    initialize()
+    launch()
 
     return 0
 

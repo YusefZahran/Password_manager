@@ -1,10 +1,13 @@
+import hashlib
+import json
+import os
 import tkinter as tk
 
+from cryptographer import Cryptographer
 import globals
 from password_manager import PasswordManager
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
-from ui.frames.sign_in_frame import SignInFrame
 
 
 class RegisterUserFrame(CustomFrame):
@@ -126,9 +129,17 @@ class RegisterUserFrame(CustomFrame):
     @staticmethod
     def __register_user(username, password):
         """Registers a new user by adding a new user to the registered users dictionary"""
-        # Get user input for username and password
-        new_username = username
-        new_password = password
 
         # Save the username and password in the dictionary
-        globals.registered_users[new_username] = new_password
+        globals.registered_users[username] = password
+
+        encrypter = Cryptographer(username, password)
+        password_token = encrypter.encrypt_entry(password)
+
+        file_name = Cryptographer.hash_entry(username)
+        file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
+
+        with open(file_path, "w") as f:
+            json.dump(password_token.decode('utf-8'), f)
+
+        os.makedirs(f"{globals.ACCOUNTS_DIRECTORY}/{file_name}/")

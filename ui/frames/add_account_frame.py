@@ -1,4 +1,9 @@
+import hashlib
+import json
 import tkinter as tk
+
+import globals
+from cryptographer import Cryptographer
 from password_manager import PasswordManager
 from ui.frames.custom_frame import CustomFrame
 from ui.components.custom_label import CustomLabel
@@ -52,3 +57,13 @@ class AddAccountFrame(CustomFrame):
         PasswordManager.add_account(self.__title_var.get(), self.__username_var.get(),
                                     self.__password_var.get(), self.__details_var)
         self.destroy_frame()
+
+        file_name = globals.cryptographer.hash_entry(self.__title_var.get())
+        file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{file_name}.json"
+
+        data = globals.cryptographer.generate_data_from_entries(self.__title_var.get(),
+                                                                self.__username_var.get(),
+                                                                self.__password_var.get(),
+                                                                ','.join(self.__details_var))
+        with open(file_path, "w") as f:
+            json.dump(data, f)

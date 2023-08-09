@@ -80,3 +80,16 @@ class Cryptographer:
         cipher = Fernet(self.__key)
         decrypted_entry = cipher.decrypt(token)
         return decrypted_entry.decode()
+
+    def generate_data_from_entries(self, *args):
+        data = ""
+        for arg in args:
+            data += self.encrypt_entry(arg).decode('utf-8') + "\n"
+        return data
+
+    @staticmethod
+    def hash_entry(entry):
+        hashed_entry = hashlib.sha256()
+        hashed_entry.update(bytes(entry, 'utf-8'))
+        hashed_entry = hashed_entry.hexdigest()
+        return hashed_entry

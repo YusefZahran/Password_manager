@@ -1,8 +1,12 @@
+import hashlib
+import json
+import os
 import tkinter as tk
+
+from cryptographer import Cryptographer
+import globals
 from ui.components.custom_vertical_input_field import CustomVerticalInputField
 from ui.frames.custom_frame import CustomFrame
-
-from globals import registered_users
 
 
 class SignInFrame(CustomFrame):
@@ -68,7 +72,6 @@ class SignInFrame(CustomFrame):
 
         if self.login(username, password):
             return True
-
         else:
             # Place code here that executes when login fails
             if self.error_label is not None:
@@ -82,10 +85,20 @@ class SignInFrame(CustomFrame):
     # endregion
 
     def login(self, username, password):
-        # Get user input for login credentials
+        is_logged_in = False
+        # TODO: Create class for this
+        file_name = Cryptographer.hash_entry(username)
+        file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
+        if os.path.exists(file_path):
+            globals.cryptographer = Cryptographer(username, password)
+            with open(file_path, "r") as infile:
+                data = json.load(infile)
+                decrypted_password = globals.cryptographer.decrypt_entry(data)
+                if password == decrypted_password:
+                    is_logged_in = True
 
-        # Check if the entered username and password match the dictionary entries
-        if username in registered_users and registered_users[username] == password:
+        if is_logged_in:
+            globals.CURRENT_USER_ACCOUNTS_DIR = f"{globals.ACCOUNTS_DIRECTORY}/{file_name}/"
             self.is_logged_in = True
             self.destroy_frame()
             return True

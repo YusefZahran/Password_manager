@@ -1,4 +1,8 @@
+import hashlib
+import json
+import os
 import tkinter as tk
+import globals
 from account import Account
 from ui.frames.custom_frame import CustomFrame
 from ui.components.custom_label import CustomLabel
@@ -16,6 +20,7 @@ class ShowAccountFrame(CustomFrame):
         :param account: The Account object to display.
         """
         # initializing account values
+        self.account = account
         self.title_var = account.title
         self.username_var = account.username
         self.password_var = account.get_password()
@@ -88,6 +93,19 @@ class ShowAccountFrame(CustomFrame):
             self.details_var_entry.configure(state="disabled")
             self.edit_button.configure(text="Edit")
             self.is_edit = False
+
+            old_file_name = globals.cryptographer.hash_entry(self.account.title)
+            os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
+
+            new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
+            new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
+
+            data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
+                                                                    self.username_var_entry.get(),
+                                                                    self.password_var_entry.get(),
+                                                                    self.details_var_entry.get())
+            with open(new_file_path, "w") as f:
+                json.dump(data, f)
 
     def exit_command(self):
         """Destroys the frame."""
