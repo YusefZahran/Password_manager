@@ -64,6 +64,6 @@ class AddAccountFrame(CustomFrame):
         data = globals.cryptographer.generate_data_from_entries(self.__title_var.get(),
                                                                 self.__username_var.get(),
                                                                 self.__password_var.get(),
-                                                                self.__details_var)
+                                                                ','.join(self.__details_var))
         with open(file_path, "w") as f:
             json.dump(data, f)
