@@ -52,8 +52,9 @@ class AccountsListFrame(AbstractFrame):
                     fields = data.split('\n')
 
                     for i, field in enumerate(fields):
-                        field = bytes(field, 'utf-8')
-                        fields[i] = globals.cryptographer.decrypt_entry(field)
+                        if field != "":
+                            field = bytes(field, 'utf-8')
+                            fields[i] = globals.cryptographer.decrypt_entry(field)
 
                     account = Account(fields[0], fields[1], fields[2], fields[3].split(','))
                     if account not in self.__accounts:

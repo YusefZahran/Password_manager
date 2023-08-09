@@ -80,3 +80,9 @@ class Cryptographer:
         cipher = Fernet(self.__key)
         decrypted_entry = cipher.decrypt(token)
         return decrypted_entry.decode()
+
+    def generate_data_from_entries(self, *args):
+        data = ""
+        for arg in args:
+            data += self.encrypt_entry(arg).decode('utf-8') + "\n"
+        return data
