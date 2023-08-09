@@ -133,13 +133,10 @@ class RegisterUserFrame(CustomFrame):
         # Save the username and password in the dictionary
         globals.registered_users[username] = password
 
-        # TODO: Create class for this
         encrypter = Cryptographer(username, password)
         password_token = encrypter.encrypt_entry(password)
 
-        file_name = hashlib.sha256()
-        file_name.update(bytes(username, 'utf-8'))
-        file_name = file_name.hexdigest()
+        file_name = Cryptographer.hash_entry(username)
         file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
 
         with open(file_path, "w") as f:

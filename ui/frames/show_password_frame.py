@@ -94,29 +94,18 @@ class ShowAccountFrame(CustomFrame):
             self.edit_button.configure(text="Edit")
             self.is_edit = False
 
-            # TODO: Remove and fix dulicates
-            data = globals.cryptographer.encrypt_entry(self.title_var_entry.get()).decode('utf-8') + "\n"
-            data += globals.cryptographer.encrypt_entry(self.username_var_entry.get()).decode('utf-8') + "\n"
-            data += globals.cryptographer.encrypt_entry(self.password_var_entry.get()).decode('utf-8') + "\n"
-            data += globals.cryptographer.encrypt_entry(','.join(self.details_var_entry.get())).decode('utf-8')
+            old_file_name = globals.cryptographer.hash_entry(self.account.title)
+            os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
 
-            new_file_name = hashlib.sha256()
-            new_file_name.update(bytes(self.title_var_entry.get(), 'utf-8'))
-            new_file_name = new_file_name.hexdigest()
-
+            new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
             new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
 
-            # data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
-            #                                                         self.username_var_entry.get(),
-            #                                                         self.password_var_entry.get(),
-            #                                                         ','.join(self.details_var_entry.get()))
+            data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
+                                                                    self.username_var_entry.get(),
+                                                                    self.password_var_entry.get(),
+                                                                    self.details_var_entry.get())
             with open(new_file_path, "w") as f:
                 json.dump(data, f)
-
-            old_file_name = hashlib.sha256()
-            old_file_name.update(bytes(self.account.title, 'utf-8'))
-            old_file_name = old_file_name.hexdigest()
-            os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
 
     def exit_command(self):
         """Destroys the frame."""

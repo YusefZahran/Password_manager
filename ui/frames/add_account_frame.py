@@ -58,16 +58,12 @@ class AddAccountFrame(CustomFrame):
                                     self.__password_var.get(), self.__details_var)
         self.destroy_frame()
 
-        data = globals.cryptographer.encrypt_entry(self.__title_var.get()).decode('utf-8') + "\n"
-        data += globals.cryptographer.encrypt_entry(self.__username_var.get()).decode('utf-8') + "\n"
-        data += globals.cryptographer.encrypt_entry(self.__password_var.get()).decode('utf-8') + "\n"
-        data += globals.cryptographer.encrypt_entry(','.join(self.__details_var)).decode('utf-8')
-
-        file_name = hashlib.sha256()
-        file_name.update(bytes(self.__title_var.get(), 'utf-8'))
-        file_name = file_name.hexdigest()
-
+        file_name = globals.cryptographer.hash_entry(self.__title_var.get())
         file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{file_name}.json"
 
+        data = globals.cryptographer.generate_data_from_entries(self.__title_var.get(),
+                                                                self.__username_var.get(),
+                                                                self.__password_var.get(),
+                                                                self.__details_var)
         with open(file_path, "w") as f:
             json.dump(data, f)

@@ -87,9 +87,7 @@ class SignInFrame(CustomFrame):
     def login(self, username, password):
         is_logged_in = False
         # TODO: Create class for this
-        file_name = hashlib.sha256()
-        file_name.update(bytes(username, 'utf-8'))
-        file_name = file_name.hexdigest()
+        file_name = Cryptographer.hash_entry(username)
         file_path = f"{globals.USERS_DIRECTORY}/{file_name}.json"
         if os.path.exists(file_path):
             globals.cryptographer = Cryptographer(username, password)
