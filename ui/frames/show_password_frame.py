@@ -36,6 +36,10 @@ class ShowAccountFrame(CustomFrame):
         self.edit_button = None
         self.exit_button = None
         self.apply_button = None
+        self.restore_title = None
+        self.restore_username = None
+        self.restore_password = None
+        self.restore_details = None
 
         self.is_edit = False
 
@@ -51,24 +55,32 @@ class ShowAccountFrame(CustomFrame):
         self.title_var_entry = CustomEntry(self, x=160, y=50)
         self.title_var_entry.insert(0, self.title_var)
         self.title_var_entry.configure(state="disabled")
+        self.restore_title = tk.Button(self, text="Restore", command=lambda: self.restore_command("title"))
+        self.restore_title.place(x=250, y=40)
 
         # Username info
         CustomLabel(self, text="Username: ", x=50, y=80)
         self.username_var_entry = CustomEntry(self, x=160, y=80)
         self.username_var_entry.insert(0, self.username_var)
         self.username_var_entry.configure(state="disabled")
+        self.restore_username = tk.Button(self, text="Restore", command=lambda: self.restore_command("username"))
+        self.restore_username.place(x=250, y=70)
 
         # Password info
         CustomLabel(self, text="Password: ", x=50, y=110)
         self.password_var_entry = CustomEntry(self, x=160, y=110)
         self.password_var_entry.insert(0, self.password_var)
         self.password_var_entry.configure(state="disabled")
+        self.restore_password = tk.Button(self, text="Restore", command=lambda: self.restore_command("password"))
+        self.restore_password.place(x=250, y=100)
 
         # Details info
         CustomLabel(self, text="Details: ", x=50, y=140)
         self.details_var_entry = CustomEntry(self, x=160, y=140)
         self.details_var_entry.insert(0, self.details_var)
         self.details_var_entry.configure(state="disabled")
+        self.restore_details = tk.Button(self, text="Restore", command=lambda: self.restore_command("details"))
+        self.restore_details.place(x=250, y=130)
 
         # Edit button
         self.edit_button = tk.Button(self, text="Edit", command=self.edit_command)
@@ -128,3 +140,17 @@ class ShowAccountFrame(CustomFrame):
     def exit_command(self):
         """Destroys the frame."""
         self.destroy_frame()
+
+    def restore_command(self, arg):
+        if arg == "title":
+            self.title_var_entry.delete(0, "end")
+            self.title_var_entry.insert(0, self.title_var)
+        elif arg == "username":
+            self.username_var_entry.delete(0, "end")
+            self.username_var_entry.insert(0, self.username_var)
+        elif arg == "password":
+            self.password_var_entry.delete(0, "end")
+            self.password_var_entry.insert(0, self.password_var)
+        elif arg == "details":
+            self.details_var_entry.delete(0, "end")
+            self.details_var_entry.insert(0, self.details_var)
