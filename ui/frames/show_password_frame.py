@@ -35,6 +35,7 @@ class ShowAccountFrame(CustomFrame):
         # initializing buttons
         self.edit_button = None
         self.exit_button = None
+        self.apply_button = None
 
         self.is_edit = False
 
@@ -73,6 +74,10 @@ class ShowAccountFrame(CustomFrame):
         self.edit_button = tk.Button(self, text="Edit", command=self.edit_command)
         self.edit_button.place(x=self.get_x_center(), y=self.get_y_center())
 
+        # Apply button
+        self.apply_button = tk.Button(self, text="Apply Changes", command=self.apply_command)
+        self.apply_button.place(x=self.get_x_center()+ 20, y=self.get_y_center())
+
         # Exit button
         self.exit_button = tk.Button(self, text="Exit", command=self.exit_command)
         self.exit_button.place(x=self.get_x_center(), y=self.get_y_center() + 50)
@@ -94,19 +99,25 @@ class ShowAccountFrame(CustomFrame):
             self.edit_button.configure(text="Edit")
             self.is_edit = False
 
-            old_file_name = globals.cryptographer.hash_entry(self.account.title)
-            os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
 
-            new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
-            new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
 
-            data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
-                                                                    self.username_var_entry.get(),
-                                                                    self.password_var_entry.get(),
-                                                                    self.details_var_entry.get())
-            with open(new_file_path, "w") as f:
-                json.dump(data, f)
+    def apply_command(self):
+        old_file_name = globals.cryptographer.hash_entry(self.account.title)
+        details_entry = self.details_var_entry.get().strip().split(", ")
+        self.account.edit_account(self.title_var_entry.get(), self.username_var_entry.get(), self.password_var_entry.get(), details_entry)
 
+
+        os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
+
+        new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
+        new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
+
+        data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
+                                                                self.username_var_entry.get(),
+                                                                self.password_var_entry.get(),
+                                                                self.details_var_entry.get())
+        with open(new_file_path, "w") as f:
+            json.dump(data, f)
     def exit_command(self):
         """Destroys the frame."""
         self.destroy_frame()
