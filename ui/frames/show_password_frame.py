@@ -76,7 +76,7 @@ class ShowAccountFrame(CustomFrame):
 
         # Apply button
         self.apply_button = tk.Button(self, text="Apply Changes", command=self.apply_command)
-        self.apply_button.place(x=self.get_x_center()+ 20, y=self.get_y_center())
+
 
         # Exit button
         self.exit_button = tk.Button(self, text="Exit", command=self.exit_command)
@@ -90,6 +90,10 @@ class ShowAccountFrame(CustomFrame):
             self.password_var_entry.configure(state="normal")
             self.details_var_entry.configure(state="normal")
             self.edit_button.configure(text="Show")
+            self.edit_button.place(x=self.get_x_center() - 100, y=self.get_y_center())
+            self.apply_button.place(x=self.get_x_center() + 40, y=self.get_y_center())
+
+
             self.is_edit = True
         else:
             self.title_var_entry.configure(state="disabled")
@@ -97,6 +101,9 @@ class ShowAccountFrame(CustomFrame):
             self.password_var_entry.configure(state="disabled")
             self.details_var_entry.configure(state="disabled")
             self.edit_button.configure(text="Edit")
+            self.edit_button.place(x=self.get_x_center(), y=self.get_y_center())
+            self.apply_button.place_forget()
+
             self.is_edit = False
 
 
