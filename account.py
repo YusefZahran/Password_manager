@@ -19,7 +19,7 @@ class Account:
     def __str__(self):
         return f"title: {self.title}\nusername: {self.username}\npassword: {self.__password}\ndetails: {self.details}\n"
 
-    def edit_password(self, title, username, password, details=None):
+    def edit_account(self, title, username, password, details=None):
         self.title = title
         self.username = username
         self.set_password(password)
