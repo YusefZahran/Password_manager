@@ -4,6 +4,7 @@ import os
 import tkinter as tk
 import globals
 from account import Account
+from password_manager import PasswordManager
 from ui.frames.custom_frame import CustomFrame
 from ui.components.custom_label import CustomLabel
 from ui.components.custom_entry import CustomEntry
@@ -42,6 +43,9 @@ class ShowAccountFrame(CustomFrame):
         self.restore_details = None
 
         self.is_edit = False
+
+        self.__error_label = None
+
 
         super().__init__(master)
 
@@ -122,21 +126,28 @@ class ShowAccountFrame(CustomFrame):
 
     def apply_command(self):
         old_file_name = globals.cryptographer.hash_entry(self.account.title)
-        details_entry = self.details_var_entry.get().strip().split(", ")
-        self.account.edit_account(self.title_var_entry.get(), self.username_var_entry.get(), self.password_var_entry.get(), details_entry)
+        if self.__error_label is not None:
+            self.__error_label.destroy()
+        if PasswordManager.is_password_secure(self.password_var_entry.get()):
+            details_entry = self.details_var_entry.get().strip().split(", ")
+            self.account.edit_account(self.title_var_entry.get(), self.username_var_entry.get(), self.password_var_entry.get(), details_entry)
+            self.__error_label = tk.Label(self, text="Change Applied",fg="green")
+            self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
 
+            os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
 
-        os.remove(f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{old_file_name}.json")
+            new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
+            new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
 
-        new_file_name = globals.cryptographer.hash_entry(self.title_var_entry.get())
-        new_file_path = f"{globals.CURRENT_USER_ACCOUNTS_DIR}/{new_file_name}.json"
-
-        data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
-                                                                self.username_var_entry.get(),
-                                                                self.password_var_entry.get(),
-                                                                self.details_var_entry.get())
-        with open(new_file_path, "w") as f:
-            json.dump(data, f)
+            data = globals.cryptographer.generate_data_from_entries(self.title_var_entry.get(),
+                                                                    self.username_var_entry.get(),
+                                                                    self.password_var_entry.get(),
+                                                                    self.details_var_entry.get())
+            with open(new_file_path, "w") as f:
+                json.dump(data, f)
+        else:
+            self.__error_label = tk.Label(self, text="Password not strong", fg="red")
+            self.__error_label.place(x=self.get_x_center(), y=self.get_y_center() + 100, anchor=tk.CENTER)
     def exit_command(self):
         """Destroys the frame."""
         self.destroy_frame()
