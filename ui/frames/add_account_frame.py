@@ -22,6 +22,7 @@ class AddAccountFrame(CustomFrame):
         self.__title_var = tk.StringVar()
         self.__username_var = tk.StringVar()
         self.__password_var = tk.StringVar()
+        self.__password_var_entry = None
         self.__details_var = tk.StringVar()
         self.__details_var_entry = None
 
@@ -30,7 +31,7 @@ class AddAccountFrame(CustomFrame):
     def initialize_frame(self):
         """Initializes the frame by drawing UI components"""
         # Form Title
-        CustomLabel(self, text="Enter Account Information", x=self.get_x_center(), y=self.get_y_center() - 200)
+        CustomLabel(self, text="Enter Account Information", x=self.get_x_center(), y=self.get_y_center() - 180)
 
         # Title info
         CustomLabel(self, text="Title: ", x=50, y=50)
@@ -42,7 +43,7 @@ class AddAccountFrame(CustomFrame):
 
         # Password info
         CustomLabel(self, text="Password: ", x=50, y=110)
-        CustomEntry(self, text_variable=self.__password_var, show='ඞ', x=160, y=110)
+        self.__password_var_entry= CustomEntry(self, text_variable=self.__password_var, x=160, y=110)
 
         # Details info
         CustomLabel(self, text="Details: ", x=50, y=140)
@@ -50,6 +51,9 @@ class AddAccountFrame(CustomFrame):
 
         add_button = tk.Button(self, text="Add", command=self.__add_account_command)
         add_button.place(x=self.get_x_center(), y=self.get_y_center())
+
+        genpass_button = tk.Button(self, text="Generate password", command=self.generate_password)
+        genpass_button.place(x=250, y=100)
 
     def __add_account_command(self):
         """Adds a new account entry to the user accounts"""
@@ -67,3 +71,6 @@ class AddAccountFrame(CustomFrame):
                                                                 ','.join(self.__details_var))
         with open(file_path, "w") as f:
             json.dump(data, f)
+
+    def generate_password(self):
+        self.__password_var_entry.insert(0, PasswordManager.generate_password())
